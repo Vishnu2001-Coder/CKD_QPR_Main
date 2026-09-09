@@ -1,0 +1,14 @@
+ID,partNumber,partName,quantity,huContainer_ID
+P001,ENG-001,Engine Mount,2,HU001
+P002,ENG-002,Oil Pump,1,HU001
+P003,BRK-001,Brake Disc,4,HU002
+P004,BRK-002,Brake Pad,4,HU002
+P005,BDY-001,Front Door Panel,2,HU003
+P006,BDY-002,Rear Door Panel,2,HU003
+P007,INT-001,Dashboard Assembly,1,HU004
+P008,INT-002,Seat Assembly,5,HU004
+P009,ELE-001,Headlamp Assembly,2,HU005
+P010,ELE-002,Wiring Harness,1,HU005
+P011,SUS-001,Shock Absorber,4,HU006
+P012,STR-001,Steering Wheel,1,HU007
+P013,TRN-001,Transmission Mount,2,HU008
