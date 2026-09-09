@@ -1,4 +1,11 @@
 ID,familyName,description,modelGroups_ID
-MF001,SUV Family,Sport Utility Vehicle Family,MG001
-MF002,Sedan Family,Sedan Vehicle Family,MG003
-MF003,Electric Family,Electric Vehicle Family,MG005
+706d7817-42e1-4531-b2fb-f689dd180061,Classic 350,Iconic retro-styled 350cc single cylinder motorcycle,3ac5063c-04be-4fcd-9e79-81e498d0067f
+6b62c039-2d03-4411-a295-7a1c1f7ae414,Meteor 350,Cruiser-style motorcycle with relaxed riding posture,9799fb3a-489a-4a02-b652-f7f67166098b
+d5d9b613-dc79-41fc-9475-78794f9dca0e,Himalayan 450,Adventure touring motorcycle built for off-road terrain,8ff1fd87-cf66-443b-a6d7-9f02ca079822
+b2ca0e2a-9f57-4f04-aad7-43b990f39002,Hunter 350,Compact roadster designed for urban commuting,2c43df2c-f4bb-4079-a682-0b28d616c896
+bda63dff-0875-4db0-b80b-91d87e5e0f69,Scram 411,Scrambler style motorcycle with dual-purpose capability,98edcb42-11a9-475c-bfd0-2082e5539a93
+f7e24498-5f98-4050-967e-355e650e8302,Continental GT 650,Café racer styled twin cylinder motorcycle,30a1867d-ef84-465e-8c40-32f27d3c49a2
+66ce5e36-510b-4a93-a90e-9a898b9878ff,Interceptor 650,Parallel twin roadster with classic styling,bc77b457-e749-4d99-a71a-4796c13baebf
+1bcfc6bf-f18e-435b-b6e4-5eba69da13d4,Bullet 350,Legendary long-running retro classic motorcycle,dae4cf99-ec3f-4648-8860-e1d307a1f9c5
+f0f55c48-d8e6-4c62-a460-6042d2e9cfcb,Super Meteor 650,Big twin cruiser for long distance touring,f21dcfa0-2100-4008-af3b-5b2701b66b08
+bf003de9-bedb-441f-bc9b-f97f8c442b7b,Shotgun 650,Bobber styled roadster with modern twin engine,35449270-a711-4ebc-bdab-c3ba96260825
