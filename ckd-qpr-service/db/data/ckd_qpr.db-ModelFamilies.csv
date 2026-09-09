@@ -1,0 +1,4 @@
+ID,familyName,description,modelGroups_ID
+MF001,SUV Family,Sport Utility Vehicle Family,MG001
+MF002,Sedan Family,Sedan Vehicle Family,MG003
+MF003,Electric Family,Electric Vehicle Family,MG005
