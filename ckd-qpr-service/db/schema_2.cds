@@ -70,7 +70,7 @@ entity SalesOrders : cuid, managed {
     plant           : Association to Plants;
     totalOrderPrice : Decimal(15, 2);
     currency        : String(3);
-    status          : String(30);
+    status          : reusabletypes.SalesOrderStatus @assert.range:[ CREATED, CONFIRMED,IN_PROGRESS,COMPLETED,CANCELLED];
     items           : Composition of many SalesOrderItems
                           on items.salesOrder = $self;
 // CREATED, CONFIRMED, IN_PROGRESS,
@@ -105,7 +105,7 @@ entity Invoices : cuid, managed {
 
 //Unique capabiltiy Imposing
 //-------------------------------
-//1)One Invoice cannot point to multiple sales Order (strict one to one)
+//1)One SalesOrder cannot be referenced by multiple Invoices.
 annotate Invoices with @assert.unique:{
     uniqueSalesOrder:[salesOrder]
 };
@@ -115,9 +115,9 @@ annotate Plants with @assert.unique: {
     PlantCode: [plantCode]
 };
 
-//3)
+//3) Within the same plant there should not be duplicate department
 annotate Department with @assert.unique: {
-    DepartmentCode : [departmentCode]
+    DepartmentCode : [plant,departmentCode]
 };
 
 //4)
@@ -130,7 +130,7 @@ annotate SalesOrders with @assert.unique:{
     SalesOrderNo : [salesOrderNo]
 };
 
-//6)
+//6)For same salesorder there should not be same items should be present
 annotate SalesOrderItems with @assert.unique:{
      ItemNo : [salesOrder,itemNo]
 };
