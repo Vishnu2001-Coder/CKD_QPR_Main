@@ -1,0 +1,1 @@
+ID,invoiceNo,invoiceDate,dueDate,salesOrder_ID,netAmount,taxAmount,totalAmount,currency,status,createdAt,createdBy,modifiedAt,modifiedBy

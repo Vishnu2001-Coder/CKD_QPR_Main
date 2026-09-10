@@ -44,3 +44,12 @@ type InvoiceStatus : String enum {
     PAID;
     CANCELLED;
 }
+
+//Sales order status
+type SalesOrderStatus : String enum {
+    CREATED;
+    CONFIRMED;
+    IN_PROGRESS;
+    COMPLETED;
+    CANCELLED;
+}
