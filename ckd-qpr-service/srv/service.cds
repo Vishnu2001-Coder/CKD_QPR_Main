@@ -1,4 +1,4 @@
-using { ckd_qpr.db as db } from '../db/schema';
+using { ckd_qpr.db as db } from '../db/schema_1';
 
 @readonly
 service QPRService {
