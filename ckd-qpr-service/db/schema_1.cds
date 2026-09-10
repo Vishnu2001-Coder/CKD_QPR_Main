@@ -19,7 +19,7 @@ entity ModelFamilies : cuid, managed {
     familyName   : String(100) not null;
     description  : String(255);
 
-    modelGroups  : Association to one ModelGroups;
+    modelGroups  : Association to one ModelGroups;             
 
     HUContainers : Association to many HUContainers
                        on HUContainers.ModelFamilies = $self;

@@ -1,14 +1,13 @@
 ID,partNumber,partName,quantity,huContainer_ID
-P001,ENG-001,Engine Mount,2,HU001
-P002,ENG-002,Oil Pump,1,HU001
-P003,BRK-001,Brake Disc,4,HU002
-P004,BRK-002,Brake Pad,4,HU002
-P005,BDY-001,Front Door Panel,2,HU003
-P006,BDY-002,Rear Door Panel,2,HU003
-P007,INT-001,Dashboard Assembly,1,HU004
-P008,INT-002,Seat Assembly,5,HU004
-P009,ELE-001,Headlamp Assembly,2,HU005
-P010,ELE-002,Wiring Harness,1,HU005
-P011,SUS-001,Shock Absorber,4,HU006
-P012,STR-001,Steering Wheel,1,HU007
-P013,TRN-001,Transmission Mount,2,HU008
+a93b1785-4ee1-4a0c-aba6-b82e16b379e9,PN-3001,Cylinder Head Assembly,1,f8480471-63ff-4a44-bb62-999849d4c132
+2d8f9f60-4cdd-47a6-a7ca-aa822c907f21,PN-3002,Fuel Tank Cap,1,07650c4d-489b-4c0f-9c0e-6a5af4a629f6
+55f29e0d-d9df-42f0-83b0-5ec1e75eace4,PN-3003,Wiring Harness Main,2,88f9b518-b74e-42b5-b260-db29f3b599fe
+8ad8c300-b872-4e5e-8ae6-cec6f30673f8,PN-3004,Frame Downtube,1,034a5370-3a25-4045-ac22-aabe2acce3ec
+4787c669-94ae-4394-925b-55d530a372be,PN-3005,Front Fork Assembly,2,d071658a-e63d-4145-80a1-d7758eceecbb
+aa74774e-9eb9-4bcf-b5a7-98362c77319c,PN-3006,Exhaust Muffler Pipe,1,b8aa364f-f157-4dbe-abd5-07d798819ff3
+7892c9d8-9f5d-4cba-85ca-25f88041168c,PN-3007,Front Disc Brake Caliper,2,d0a1ea78-ae15-4a57-9b67-4ebba58f4e47
+4c69e2d4-99cc-46d4-bc42-7ac71108c926,PN-3008,Dual Seat Cushion,1,02e899ed-1c59-4ab0-94ad-a801907f9fae
+bfba8a32-0de3-450b-9c52-d6c1cce209c8,PN-3009,Speedometer Console,1,8b3d2ba4-9c59-46cf-a545-e2295a735819
+1f4127a8-b153-4ca7-8d9f-13606079f3d5,PN-3010,Alloy Wheel Rim,2,dd23be7b-3308-494e-99d5-4cbe1bbe6693
+ebdb167f-e89a-441b-9885-c5a2437b4b6c,PN-3011,Rear Shock Absorber,2,f8480471-63ff-4a44-bb62-999849d4c132
+8c079c90-3e07-458f-9b66-c20d88c35cfb,PN-3012,Headlamp Assembly,1,07650c4d-489b-4c0f-9c0e-6a5af4a629f6

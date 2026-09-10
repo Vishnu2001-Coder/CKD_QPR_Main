@@ -1,11 +1,11 @@
 ID,groupCode,groupName
-MG001,RE-CLASSIC,Classic Series
-MG002,RE-HUNTER,Hunter Series
-MG003,RE-METEOR,Meteor Series
-MG004,RE-HIMALAYAN,Himalayan Series
-MG005,RE-BULLET,Bullet Series
-MG006,RE-CONTINENTAL,Continental GT Series
-MG007,RE-INTERCEPTOR,Interceptor Series
-MG008,RE-SHOTGUN,Shotgun Series
-MG009,RE-GUERRILLA,Guerrilla Series
-MG010,RE-SUPER,Super Meteor Series
+3ac5063c-04be-4fcd-9e79-81e498d0067f,MG-001,Classic Series
+9799fb3a-489a-4a02-b652-f7f67166098b,MG-002,Cruiser Series
+8ff1fd87-cf66-443b-a6d7-9f02ca079822,MG-003,Adventure Series
+2c43df2c-f4bb-4079-a682-0b28d616c896,MG-004,Roadster Series
+98edcb42-11a9-475c-bfd0-2082e5539a93,MG-005,Scrambler Series
+30a1867d-ef84-465e-8c40-32f27d3c49a2,MG-006,Retro Series
+bc77b457-e749-4d99-a71a-4796c13baebf,MG-007,Touring Series
+dae4cf99-ec3f-4648-8860-e1d307a1f9c5,MG-008,Bullet Series
+f21dcfa0-2100-4008-af3b-5b2701b66b08,MG-009,Himalayan Series
+35449270-a711-4ebc-bdab-c3ba96260825,MG-010,Continental Series

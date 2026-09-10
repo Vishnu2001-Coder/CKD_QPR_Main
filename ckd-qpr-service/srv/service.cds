@@ -1,12 +1,9 @@
-using ckd_qpr.db as db from '../db/schema';
+using { ckd_qpr.db as db } from '../db/schema_1';
 
+@readonly
 service QPRService {
-
+    entity ModelGroups   as projection on db.ModelGroups;
     entity ModelFamilies as projection on db.ModelFamilies;
-
-    entity ModelGroups as projection on db.ModelGroups;
-
-    entity HUContainers as projection on db.HUContainers;
-
-    entity Parts as projection on db.Parts;
+    entity HUContainers  as projection on db.HUContainers;
+    entity Parts         as projection on db.Parts;
 }
