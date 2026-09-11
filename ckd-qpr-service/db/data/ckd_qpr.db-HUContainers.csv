@@ -1,9 +1,11 @@
 ID,huNumber,commodity,ModelFamilies_ID
-HU001,HU-100001,Engine,MF001
-HU002,HU-100002,Brake,MF001
-HU003,HU-100003,Body,MF002
-HU004,HU-100004,Interior,MF002
-HU005,HU-100005,Electrical,MF003
-HU006,HU-100006,Suspension,MF001
-HU007,HU-100007,Steering,MF002
-HU008,HU-100008,Transmission,MF003
+f8480471-63ff-4a44-bb62-999849d4c132,HU-1001,Engine Parts,706d7817-42e1-4531-b2fb-f689dd180061
+07650c4d-489b-4c0f-9c0e-6a5af4a629f6,HU-1002,Fuel Tank Assembly,6b62c039-2d03-4411-a295-7a1c1f7ae414
+88f9b518-b74e-42b5-b260-db29f3b599fe,HU-1003,Electrical Wiring Kit,d5d9b613-dc79-41fc-9475-78794f9dca0e
+034a5370-3a25-4045-ac22-aabe2acce3ec,HU-1004,Frame & Chassis Parts,b2ca0e2a-9f57-4f04-aad7-43b990f39002
+d071658a-e63d-4145-80a1-d7758eceecbb,HU-1005,Suspension Components,bda63dff-0875-4db0-b80b-91d87e5e0f69
+b8aa364f-f157-4dbe-abd5-07d798819ff3,HU-1006,Exhaust System Parts,f7e24498-5f98-4050-967e-355e650e8302
+d0a1ea78-ae15-4a57-9b67-4ebba58f4e47,HU-1007,Braking System Kit,66ce5e36-510b-4a93-a90e-9a898b9878ff
+02e899ed-1c59-4ab0-94ad-a801907f9fae,HU-1008,Seat & Trim Parts,1bcfc6bf-f18e-435b-b6e4-5eba69da13d4
+8b3d2ba4-9c59-46cf-a545-e2295a735819,HU-1009,Handlebar & Console Kit,f0f55c48-d8e6-4c62-a460-6042d2e9cfcb
+dd23be7b-3308-494e-99d5-4cbe1bbe6693,HU-1010,Wheel & Tyre Assembly,bf003de9-bedb-441f-bc9b-f97f8c442b7b
