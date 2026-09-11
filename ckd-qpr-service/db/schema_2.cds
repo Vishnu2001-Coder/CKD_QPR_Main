@@ -86,13 +86,7 @@ entity SalesOrders : cuid, managed {
     plant           : Association to Plants;
     totalOrderPrice : Decimal(15, 2);
     currency        : String(3);
-    status          : reusabletypes.SalesOrderStatus @assert.range: [
-        CREATED,
-        CONFIRMED,
-        IN_PROGRESS,
-        COMPLETED,
-        CANCELLED
-    ];
+    status          : reusabletypes.SalesOrderStatus @assert.range:[ CREATED, CONFIRMED,IN_PROGRESS,COMPLETED,CANCELLED,DELETEDDD];
     items           : Composition of many SalesOrderItems
                           on items.salesOrder = $self;
 // CREATED, CONFIRMED, IN_PROGRESS,
