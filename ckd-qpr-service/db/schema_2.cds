@@ -1,6 +1,9 @@
 namespace ckd_qpr.db1;
 
-using {cuid,managed}from '@sap/cds/common';
+using {
+    cuid,
+    managed
+} from '@sap/cds/common';
 
 using {ckd_qpr.db.ModelFamilies as ModelFamilies} from './schema_1';
 using {ckd_qpr.db_types as reusabletypes} from './types';
@@ -83,7 +86,13 @@ entity SalesOrders : cuid, managed {
     plant           : Association to Plants;
     totalOrderPrice : Decimal(15, 2);
     currency        : String(3);
-    status          : reusabletypes.SalesOrderStatus @assert.range:[ CREATED, CONFIRMED,IN_PROGRESS,COMPLETED,CANCELLED];
+    status          : reusabletypes.SalesOrderStatus @assert.range: [
+        CREATED,
+        CONFIRMED,
+        IN_PROGRESS,
+        COMPLETED,
+        CANCELLED
+    ];
     items           : Composition of many SalesOrderItems
                           on items.salesOrder = $self;
 // CREATED, CONFIRMED, IN_PROGRESS,
