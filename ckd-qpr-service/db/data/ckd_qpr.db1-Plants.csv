@@ -1,1 +1,11 @@
 ID,plantCode,address,city,state,country,plantName,plantType,status,createdAt,createdBy,modifiedAt,modifiedBy
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7001,PLT001,"Thiruvottiyur High Road, Thiruvottiyur",Chennai,Tamil Nadu,India,"Royal Enfield Chennai Manufacturing Plant",MANUFACTURING,Active,2026-01-05T08:30:00Z,admin,2026-01-05T08:30:00Z,admin
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7002,PLT002,"Oragadam Industrial Corridor, Sriperumbudur",Chennai,Tamil Nadu,India,"Royal Enfield Oragadam Assembly Plant",ASSEMBLY,Active,2026-01-06T09:00:00Z,admin,2026-01-10T10:15:00Z,admin
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7003,PLT003,"Vallam Vadagal Industrial Estate",Chennai,Tamil Nadu,India,"Royal Enfield Chennai Warehouse",WAREHOUSE,Active,2026-01-07T09:30:00Z,manager,2026-01-11T11:00:00Z,manager
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7004,PLT004,"Chakan Industrial Area",Pune,Maharashtra,India,"Royal Enfield Pune Manufacturing Plant",MANUFACTURING,Active,2026-01-08T08:45:00Z,admin,2026-01-12T09:30:00Z,admin
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7005,PLT005,"Leicester Industrial Estate",Leicester,England,United Kingdom,"Royal Enfield UK Warehouse",WAREHOUSE,Active,2026-01-09T10:00:00Z,admin,2026-01-13T12:00:00Z,admin
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7006,PLT006,"Bangkok Industrial Zone",Bangkok,Bangkok,Thailand,"Royal Enfield Thailand Assembly Plant",ASSEMBLY,Active,2026-01-10T08:15:00Z,manager,2026-01-14T10:45:00Z,manager
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7007,PLT007,"North Jakarta Industrial Area",Jakarta,West Java,Indonesia,"Royal Enfield Indonesia Assembly Plant",ASSEMBLY,Active,2026-01-11T09:15:00Z,admin,2026-01-15T11:30:00Z,admin
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7008,PLT008,"Sao Paulo Industrial District",Sao Paulo,Sao Paulo,Brazil,"Royal Enfield Brazil Warehouse",WAREHOUSE,Active,2026-01-12T10:30:00Z,admin,2026-02-01T09:00:00Z,admin
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7009,PLT009,"Buenos Aires Industrial Park",Buenos Aires,Buenos Aires,Argentina,"Royal Enfield Argentina Assembly Plant",ASSEMBLY,Active,2026-01-13T09:00:00Z,manager,2026-02-02T10:30:00Z,manager
+7b9c1d2e-4f63-4a81-9c25-1e8b6d3f7010,PLT010,"Dubai Industrial City",Dubai,Dubai,United Arab Emirates,"Royal Enfield Middle East Warehouse",WAREHOUSE,Active,2026-01-14T08:30:00Z,admin,2026-02-03T11:00:00Z,admin
