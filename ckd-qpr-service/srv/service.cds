@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+using ckd_qpr.db as db from '../db/schema';
+
+service QPRService {
+
+    entity ModelFamilies as projection on db.ModelFamilies;
+
+    entity ModelGroups as projection on db.ModelGroups;
+
+    entity HUContainers as projection on db.HUContainers;
+
+    entity Parts as projection on db.Parts;
+=======
 using { ckd_qpr.db as db } from '../db/schema_1';
 using { ckd_qpr.db1 as db1} from '../db/schema_2';
 
@@ -20,4 +33,5 @@ service CKDService {
     entity SalesOrders     as projection on db1.SalesOrders;
     entity SalesOrderItems as projection on db1.SalesOrderItems;
     entity Invoices        as projection on db1.Invoices;
+>>>>>>> origin
 }
