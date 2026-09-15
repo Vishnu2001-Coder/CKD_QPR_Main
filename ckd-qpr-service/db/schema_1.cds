@@ -16,7 +16,7 @@ entity ModelGroups : cuid, managed {
 
 entity ModelFamilies : cuid, managed {
 
-    familyName   : String(100) not null;
+    familyName   : String(100) not null; 
     description  : String(255);
 
     modelGroups  : Association to one ModelGroups;             
