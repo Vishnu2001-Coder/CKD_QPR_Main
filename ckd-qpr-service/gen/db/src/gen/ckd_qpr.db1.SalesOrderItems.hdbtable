@@ -1,0 +1,15 @@
+COLUMN TABLE ckd_qpr_db1_SalesOrderItems (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP,
+  modifiedBy NVARCHAR(255),
+  salesOrder_ID NVARCHAR(36),
+  itemNo INTEGER NOT NULL,
+  modelFamily_ID NVARCHAR(36),
+  quantity INTEGER NOT NULL,
+  unitPrice DECIMAL(15, 2),
+  totalItemPrice DECIMAL(15, 2),
+  currency NVARCHAR(3),
+  PRIMARY KEY(ID)
+)

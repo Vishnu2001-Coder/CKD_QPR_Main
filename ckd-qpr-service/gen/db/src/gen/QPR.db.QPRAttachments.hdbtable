@@ -1,0 +1,8 @@
+COLUMN TABLE QPR_db_QPRAttachments (
+  ID NVARCHAR(36) NOT NULL,
+  qprItem_ID NVARCHAR(36),
+  fileName NVARCHAR(255),
+  fileType NVARCHAR(100),
+  fileContent BLOB,
+  PRIMARY KEY(ID)
+)

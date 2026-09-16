@@ -1,0 +1,10 @@
+COLUMN TABLE ckd_qpr_db_ModelGroups (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP,
+  modifiedBy NVARCHAR(255),
+  groupCode NVARCHAR(20) NOT NULL,
+  groupName NVARCHAR(100) NOT NULL,
+  PRIMARY KEY(ID)
+)

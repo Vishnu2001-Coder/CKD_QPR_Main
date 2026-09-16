@@ -1,0 +1,13 @@
+VIEW CKDService_SalesOrders AS SELECT
+  SalesOrders_0.ID,
+  SalesOrders_0.createdAt,
+  SalesOrders_0.createdBy,
+  SalesOrders_0.modifiedAt,
+  SalesOrders_0.modifiedBy,
+  SalesOrders_0.salesOrderNo,
+  SalesOrders_0.orderDate,
+  SalesOrders_0.plant_ID,
+  SalesOrders_0.totalOrderPrice,
+  SalesOrders_0.currency,
+  SalesOrders_0.status
+FROM ckd_qpr_db1_SalesOrders AS SalesOrders_0

@@ -1,0 +1,1 @@
+UNIQUE INVERTED INDEX ckd_qpr_db1_Department_DepartmentCode ON ckd_qpr_db1_Department (plant_ID, departmentCode)

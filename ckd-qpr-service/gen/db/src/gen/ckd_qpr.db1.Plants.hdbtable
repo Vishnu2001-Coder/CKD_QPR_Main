@@ -1,0 +1,16 @@
+COLUMN TABLE ckd_qpr_db1_Plants (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP,
+  modifiedBy NVARCHAR(255),
+  plantCode NVARCHAR(10) NOT NULL,
+  address NVARCHAR(255),
+  city NVARCHAR(50),
+  state NVARCHAR(50),
+  country NVARCHAR(50),
+  plantName NVARCHAR(100) NOT NULL,
+  plantType NVARCHAR(5000),
+  status NVARCHAR(5000),
+  PRIMARY KEY(ID)
+)

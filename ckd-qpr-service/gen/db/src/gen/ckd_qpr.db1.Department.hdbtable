@@ -1,0 +1,13 @@
+COLUMN TABLE ckd_qpr_db1_Department (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP,
+  modifiedBy NVARCHAR(255),
+  departmentCode NVARCHAR(20) NOT NULL,
+  departmentName NVARCHAR(100) NOT NULL,
+  departmentType NVARCHAR(5000),
+  status NVARCHAR(5000),
+  plant_ID NVARCHAR(36),
+  PRIMARY KEY(ID)
+)

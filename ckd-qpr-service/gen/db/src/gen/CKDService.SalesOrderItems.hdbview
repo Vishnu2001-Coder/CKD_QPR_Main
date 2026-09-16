@@ -1,0 +1,14 @@
+VIEW CKDService_SalesOrderItems AS SELECT
+  SalesOrderItems_0.ID,
+  SalesOrderItems_0.createdAt,
+  SalesOrderItems_0.createdBy,
+  SalesOrderItems_0.modifiedAt,
+  SalesOrderItems_0.modifiedBy,
+  SalesOrderItems_0.salesOrder_ID,
+  SalesOrderItems_0.itemNo,
+  SalesOrderItems_0.modelFamily_ID,
+  SalesOrderItems_0.quantity,
+  SalesOrderItems_0.unitPrice,
+  SalesOrderItems_0.totalItemPrice,
+  SalesOrderItems_0.currency
+FROM ckd_qpr_db1_SalesOrderItems AS SalesOrderItems_0
