@@ -1,0 +1,9 @@
+VIEW QPRService_ModelGroups AS SELECT
+  ModelGroups_0.ID,
+  ModelGroups_0.createdAt,
+  ModelGroups_0.createdBy,
+  ModelGroups_0.modifiedAt,
+  ModelGroups_0.modifiedBy,
+  ModelGroups_0.groupCode,
+  ModelGroups_0.groupName
+FROM ckd_qpr_db_ModelGroups AS ModelGroups_0

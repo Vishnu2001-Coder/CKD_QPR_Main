@@ -1,0 +1,9 @@
+ID,plantCode,address,city,state,country,plantName,plantType,status,createdAt,createdBy,modifiedAt,modifiedBy
+30000001-0001-0001-0001-000000000001,IN001,Oragadam Industrial Area,Chennai,Tamil Nadu,India,Chennai CKD Manufacturing Plant,MANUFACTURING,ACTIVE,2026-09-15T10:00:00Z,system,2026-09-15T10:00:00Z,system
+30000001-0001-0001-0001-000000000002,TH001,Samut Prakan Industrial Estate,Bangkok,Samut Prakan,Thailand,Bangkok CKD Assembly Plant,ASSEMBLY,ACTIVE,2026-09-15T10:01:00Z,system,2026-09-15T10:01:00Z,system
+30000001-0001-0001-0001-000000000003,BR001,Industrial District,Sao Paulo,Sao Paulo,Brazil,Sao Paulo CKD Assembly Plant,ASSEMBLY,ACTIVE,2026-09-15T10:02:00Z,system,2026-09-15T10:02:00Z,system
+30000001-0001-0001-0001-000000000004,AR001,Industrial Park,Buenos Aires,Buenos Aires,Argentina,Buenos Aires CKD Assembly Plant,ASSEMBLY,ACTIVE,2026-09-15T10:03:00Z,system,2026-09-15T10:03:00Z,system
+30000001-0001-0001-0001-000000000005,CO001,Industrial Zone,Bogota,Cundinamarca,Colombia,Bogota CKD Assembly Plant,ASSEMBLY,ACTIVE,2026-09-15T10:04:00Z,system,2026-09-15T10:04:00Z,system
+30000001-0001-0001-0001-000000000006,ID001,Jakarta Industrial Estate,Jakarta,Jakarta,Indonesia,Jakarta CKD Warehouse,WAREHOUSE,ACTIVE,2026-09-15T10:05:00Z,system,2026-09-15T10:05:00Z,system
+30000001-0001-0001-0001-000000000007,UK001,Leicester Industrial Park,Leicester,England,United Kingdom,UK Distribution Plant,WAREHOUSE,ACTIVE,2026-09-15T10:06:00Z,system,2026-09-15T10:06:00Z,system
+30000001-0001-0001-0001-000000000008,AU001,Melbourne Industrial Estate,Melbourne,Victoria,Australia,Melbourne Distribution Plant,WAREHOUSE,ACTIVE,2026-09-15T10:07:00Z,system,2026-09-15T10:07:00Z,system

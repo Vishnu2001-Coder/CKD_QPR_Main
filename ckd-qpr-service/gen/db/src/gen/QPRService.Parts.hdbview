@@ -1,0 +1,11 @@
+VIEW QPRService_Parts AS SELECT
+  Parts_0.ID,
+  Parts_0.createdAt,
+  Parts_0.createdBy,
+  Parts_0.modifiedAt,
+  Parts_0.modifiedBy,
+  Parts_0.partNumber,
+  Parts_0.partName,
+  Parts_0.quantity,
+  Parts_0.huContainer_ID
+FROM ckd_qpr_db_Parts AS Parts_0

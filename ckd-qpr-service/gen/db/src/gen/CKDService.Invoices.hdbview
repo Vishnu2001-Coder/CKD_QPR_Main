@@ -1,0 +1,16 @@
+VIEW CKDService_Invoices AS SELECT
+  Invoices_0.ID,
+  Invoices_0.createdAt,
+  Invoices_0.createdBy,
+  Invoices_0.modifiedAt,
+  Invoices_0.modifiedBy,
+  Invoices_0.invoiceNo,
+  Invoices_0.invoiceDate,
+  Invoices_0.dueDate,
+  Invoices_0.salesOrder_ID,
+  Invoices_0.netAmount,
+  Invoices_0.taxAmount,
+  Invoices_0.totalAmount,
+  Invoices_0.currency,
+  Invoices_0.status
+FROM ckd_qpr_db1_Invoices AS Invoices_0

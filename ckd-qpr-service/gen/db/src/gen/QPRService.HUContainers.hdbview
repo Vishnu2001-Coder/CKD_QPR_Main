@@ -1,0 +1,10 @@
+VIEW QPRService_HUContainers AS SELECT
+  HUContainers_0.ID,
+  HUContainers_0.createdAt,
+  HUContainers_0.createdBy,
+  HUContainers_0.modifiedAt,
+  HUContainers_0.modifiedBy,
+  HUContainers_0.huNumber,
+  HUContainers_0.commodity,
+  HUContainers_0.ModelFamilies_ID
+FROM ckd_qpr_db_HUContainers AS HUContainers_0

@@ -1,0 +1,11 @@
+COLUMN TABLE ckd_qpr_db_ModelFamilies (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP,
+  modifiedBy NVARCHAR(255),
+  familyName NVARCHAR(100) NOT NULL,
+  description NVARCHAR(255),
+  modelGroups_ID NVARCHAR(36),
+  PRIMARY KEY(ID)
+)

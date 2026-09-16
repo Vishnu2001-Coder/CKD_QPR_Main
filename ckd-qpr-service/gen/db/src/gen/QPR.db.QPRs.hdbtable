@@ -1,0 +1,14 @@
+COLUMN TABLE QPR_db_QPRs (
+  ID NVARCHAR(36) NOT NULL,
+  qprNumber NVARCHAR(30),
+  invoice_ID NVARCHAR(36),
+  salesOrder_ID NVARCHAR(36),
+  dateOfContainerReceipt DATE,
+  unpackingDate DATE,
+  assembler_ID NVARCHAR(36),
+  country NVARCHAR(100),
+  department_ID NVARCHAR(36),
+  plant NVARCHAR(50),
+  status NVARCHAR(30),
+  PRIMARY KEY(ID)
+)

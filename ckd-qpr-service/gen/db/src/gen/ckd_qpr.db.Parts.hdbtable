@@ -1,0 +1,12 @@
+COLUMN TABLE ckd_qpr_db_Parts (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP,
+  modifiedBy NVARCHAR(255),
+  partNumber NVARCHAR(40) NOT NULL,
+  partName NVARCHAR(150),
+  quantity INTEGER DEFAULT 1,
+  huContainer_ID NVARCHAR(36) NOT NULL,
+  PRIMARY KEY(ID)
+)

@@ -1,0 +1,1 @@
+UNIQUE INVERTED INDEX ckd_qpr_db1_Employees_EmployeeCode ON ckd_qpr_db1_Employees (employeeCode)

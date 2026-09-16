@@ -1,0 +1,1 @@
+UNIQUE INVERTED INDEX ckd_qpr_db1_Invoices_InvoiceNo ON ckd_qpr_db1_Invoices (invoiceNo)

@@ -1,0 +1,11 @@
+COLUMN TABLE ckd_qpr_db_HUContainers (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP,
+  modifiedBy NVARCHAR(255),
+  huNumber NVARCHAR(30) NOT NULL,
+  commodity NVARCHAR(50),
+  ModelFamilies_ID NVARCHAR(36) NOT NULL,
+  PRIMARY KEY(ID)
+)

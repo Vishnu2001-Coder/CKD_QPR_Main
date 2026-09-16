@@ -1,0 +1,20 @@
+{
+  "requires": {
+    "[hybrid]": {
+      "db": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-003.hana.ondemand.com",
+          "org": "69ce3fbftrial",
+          "space": "dev",
+          "instance": "ckd-qpr-service-db",
+          "key": "ckd-qpr-service-db-key"
+        },
+        "kind": "hana",
+        "vcap": {
+          "name": "db"
+        }
+      }
+    }
+  }
+}
