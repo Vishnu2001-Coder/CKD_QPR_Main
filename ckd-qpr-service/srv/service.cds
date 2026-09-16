@@ -1,5 +1,7 @@
 using { ckd_qpr.db as db } from '../db/schema_1';
 using { ckd_qpr.db1 as db1} from '../db/schema_2';
+using {QPR.db as db3  } from '../db/schema_3';
+
 
 //CKDQPRMasterDataServices
 
@@ -21,6 +23,12 @@ service CKDService {
     entity SalesOrders     as projection on db1.SalesOrders;
     entity SalesOrderItems as projection on db1.SalesOrderItems;
     entity Invoices        as projection on db1.Invoices;
+};
+
+service QPRRequest{
+  entity Foo as projection on db3.QPRs;
+  entity fo as projection on db3.QPRItems;
+  entity foo as projection on db3.QPRAttachments;
 }
 
 // https://port4004-workspaces-ws-gsz41.us10.trial.applicationstudio.cloud.sap/odata/v4/ckd/Invoices?$expand=salesOrder($expand=items($expand=modelFamily))
