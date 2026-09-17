@@ -26,9 +26,9 @@ service CKDService {
 };
 
 service QPRRequest{
-  entity Foo as projection on db3.QPRs;
-  entity fo as projection on db3.QPRItems;
-  entity foo as projection on db3.QPRAttachments;
+  entity QPRs as projection on db3.QPRs;
+  entity QPRItems as projection on db3.QPRItems;
+  entity QPRAttachments as projection on db3.QPRAttachments;
 }
 
 // https://port4004-workspaces-ws-gsz41.us10.trial.applicationstudio.cloud.sap/odata/v4/ckd/Invoices?$expand=salesOrder($expand=items($expand=modelFamily))

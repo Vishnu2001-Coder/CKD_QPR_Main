@@ -1,0 +1,15 @@
+VIEW QPRRequest_Employees AS SELECT
+  Employees_0.ID,
+  Employees_0.createdAt,
+  Employees_0.createdBy,
+  Employees_0.modifiedAt,
+  Employees_0.modifiedBy,
+  Employees_0.employeeCode,
+  Employees_0.employeeName,
+  Employees_0.email,
+  Employees_0.phone,
+  Employees_0.jobTitle,
+  Employees_0.employeeType,
+  Employees_0.department_ID,
+  Employees_0.status
+FROM ckd_qpr_db1_Employees AS Employees_0

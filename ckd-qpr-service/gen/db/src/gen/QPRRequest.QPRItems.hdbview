@@ -1,0 +1,17 @@
+VIEW QPRRequest_QPRItems AS SELECT
+  QPRItems_0.ID,
+  QPRItems_0.qpr_ID,
+  QPRItems_0.modelFamily_ID,
+  QPRItems_0.modelGroup_ID,
+  QPRItems_0.hu_ID,
+  QPRItems_0.part_ID,
+  QPRItems_0.caseNumber,
+  QPRItems_0.invoiceQuantity,
+  QPRItems_0.claimQuantity,
+  QPRItems_0.uom,
+  QPRItems_0.partCondition,
+  QPRItems_0.packagingCondition,
+  QPRItems_0.natureOfDefect,
+  QPRItems_0.replacementOrRework,
+  QPRItems_0.remarks
+FROM QPR_db_QPRItems AS QPRItems_0
