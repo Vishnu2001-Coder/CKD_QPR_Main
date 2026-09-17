@@ -1,0 +1,13 @@
+VIEW QPRRequest_QPRs AS SELECT
+  QPRs_0.ID,
+  QPRs_0.qprNumber,
+  QPRs_0.invoice_ID,
+  QPRs_0.salesOrder_ID,
+  QPRs_0.dateOfContainerReceipt,
+  QPRs_0.unpackingDate,
+  QPRs_0.assembler_ID,
+  QPRs_0.country,
+  QPRs_0.department_ID,
+  QPRs_0.plant,
+  QPRs_0.status
+FROM QPR_db_QPRs AS QPRs_0
