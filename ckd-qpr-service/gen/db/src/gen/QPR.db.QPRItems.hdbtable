@@ -1,0 +1,18 @@
+COLUMN TABLE QPR_db_QPRItems (
+  ID NVARCHAR(36) NOT NULL,
+  qpr_ID NVARCHAR(36),
+  modelFamily_ID NVARCHAR(36),
+  modelGroup_ID NVARCHAR(36),
+  hu_ID NVARCHAR(36),
+  part_ID NVARCHAR(36),
+  caseNumber NVARCHAR(50),
+  invoiceQuantity DECIMAL(13, 3),
+  claimQuantity DECIMAL(13, 3),
+  uom NVARCHAR(10),
+  partCondition NVARCHAR(50),
+  packagingCondition NVARCHAR(50),
+  natureOfDefect NVARCHAR(100),
+  replacementOrRework NVARCHAR(30),
+  remarks NVARCHAR(500),
+  PRIMARY KEY(ID)
+)

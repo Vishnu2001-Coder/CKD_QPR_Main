@@ -1,0 +1,16 @@
+COLUMN TABLE ckd_qpr_db1_Employees (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP,
+  modifiedBy NVARCHAR(255),
+  employeeCode NVARCHAR(20) NOT NULL,
+  employeeName NVARCHAR(100) NOT NULL,
+  email NVARCHAR(100),
+  phone NVARCHAR(20),
+  jobTitle NVARCHAR(100),
+  employeeType NVARCHAR(5000),
+  department_ID NVARCHAR(36),
+  status NVARCHAR(5000),
+  PRIMARY KEY(ID)
+)

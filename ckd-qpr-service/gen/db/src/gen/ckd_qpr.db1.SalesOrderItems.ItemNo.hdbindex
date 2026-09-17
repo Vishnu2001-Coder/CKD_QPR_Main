@@ -1,0 +1,1 @@
+UNIQUE INVERTED INDEX ckd_qpr_db1_SalesOrderItems_ItemNo ON ckd_qpr_db1_SalesOrderItems (salesOrder_ID, itemNo)

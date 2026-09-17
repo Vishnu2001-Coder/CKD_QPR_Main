@@ -1,0 +1,41 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "CKD_QPR_DB_PARTS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "ckd_qpr.db-Parts.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "PARTNUMBER",
+          "PARTNAME",
+          "QUANTITY",
+          "HUCONTAINER_ID",
+          "CREATEDAT",
+          "CREATEDBY",
+          "MODIFIEDAT",
+          "MODIFIEDBY"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "PARTNUMBER": "partNumber",
+        "PARTNAME": "partName",
+        "QUANTITY": "quantity",
+        "HUCONTAINER_ID": "huContainer_ID",
+        "CREATEDAT": "createdAt",
+        "CREATEDBY": "createdBy",
+        "MODIFIEDAT": "modifiedAt",
+        "MODIFIEDBY": "modifiedBy"
+      }
+    }
+  ]
+}

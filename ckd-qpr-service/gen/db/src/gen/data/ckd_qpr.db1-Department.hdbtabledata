@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "CKD_QPR_DB1_DEPARTMENT",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "ckd_qpr.db1-Department.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "DEPARTMENTCODE",
+          "DEPARTMENTNAME",
+          "DEPARTMENTTYPE",
+          "STATUS",
+          "PLANT_ID",
+          "CREATEDAT",
+          "CREATEDBY",
+          "MODIFIEDAT",
+          "MODIFIEDBY"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "DEPARTMENTCODE": "departmentCode",
+        "DEPARTMENTNAME": "departmentName",
+        "DEPARTMENTTYPE": "departmentType",
+        "STATUS": "status",
+        "PLANT_ID": "plant_ID",
+        "CREATEDAT": "createdAt",
+        "CREATEDBY": "createdBy",
+        "MODIFIEDAT": "modifiedAt",
+        "MODIFIEDBY": "modifiedBy"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+COLUMN TABLE ckd_qpr_db1_SalesOrders (
+  ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP,
+  modifiedBy NVARCHAR(255),
+  salesOrderNo NVARCHAR(20) NOT NULL,
+  orderDate DATE,
+  plant_ID NVARCHAR(36),
+  totalOrderPrice DECIMAL(15, 2),
+  currency NVARCHAR(3),
+  status NVARCHAR(5000),
+  PRIMARY KEY(ID)
+)

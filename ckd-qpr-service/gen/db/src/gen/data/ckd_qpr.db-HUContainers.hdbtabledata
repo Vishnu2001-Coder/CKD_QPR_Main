@@ -1,0 +1,39 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "CKD_QPR_DB_HUCONTAINERS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "ckd_qpr.db-HUContainers.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "HUNUMBER",
+          "COMMODITY",
+          "MODELFAMILIES_ID",
+          "CREATEDAT",
+          "CREATEDBY",
+          "MODIFIEDAT",
+          "MODIFIEDBY"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "HUNUMBER": "huNumber",
+        "COMMODITY": "commodity",
+        "MODELFAMILIES_ID": "ModelFamilies_ID",
+        "CREATEDAT": "createdAt",
+        "CREATEDBY": "createdBy",
+        "MODIFIEDAT": "modifiedAt",
+        "MODIFIEDBY": "modifiedBy"
+      }
+    }
+  ]
+}

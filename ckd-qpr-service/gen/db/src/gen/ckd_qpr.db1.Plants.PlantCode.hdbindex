@@ -1,0 +1,1 @@
+UNIQUE INVERTED INDEX ckd_qpr_db1_Plants_PlantCode ON ckd_qpr_db1_Plants (plantCode)

@@ -1,0 +1,49 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "CKD_QPR_DB1_PLANTS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "ckd_qpr.db1-Plants.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "PLANTCODE",
+          "ADDRESS",
+          "CITY",
+          "STATE",
+          "COUNTRY",
+          "PLANTNAME",
+          "PLANTTYPE",
+          "STATUS",
+          "CREATEDAT",
+          "CREATEDBY",
+          "MODIFIEDAT",
+          "MODIFIEDBY"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "PLANTCODE": "plantCode",
+        "ADDRESS": "address",
+        "CITY": "city",
+        "STATE": "state",
+        "COUNTRY": "country",
+        "PLANTNAME": "plantName",
+        "PLANTTYPE": "plantType",
+        "STATUS": "status",
+        "CREATEDAT": "createdAt",
+        "CREATEDBY": "createdBy",
+        "MODIFIEDAT": "modifiedAt",
+        "MODIFIEDBY": "modifiedBy"
+      }
+    }
+  ]
+}

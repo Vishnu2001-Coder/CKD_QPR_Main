@@ -1,0 +1,49 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "CKD_QPR_DB1_EMPLOYEES",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "ckd_qpr.db1-Employees.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "EMPLOYEECODE",
+          "EMPLOYEENAME",
+          "EMAIL",
+          "PHONE",
+          "JOBTITLE",
+          "EMPLOYEETYPE",
+          "DEPARTMENT_ID",
+          "STATUS",
+          "CREATEDAT",
+          "CREATEDBY",
+          "MODIFIEDAT",
+          "MODIFIEDBY"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "EMPLOYEECODE": "employeeCode",
+        "EMPLOYEENAME": "employeeName",
+        "EMAIL": "email",
+        "PHONE": "phone",
+        "JOBTITLE": "jobTitle",
+        "EMPLOYEETYPE": "employeeType",
+        "DEPARTMENT_ID": "department_ID",
+        "STATUS": "status",
+        "CREATEDAT": "createdAt",
+        "CREATEDBY": "createdBy",
+        "MODIFIEDAT": "modifiedAt",
+        "MODIFIEDBY": "modifiedBy"
+      }
+    }
+  ]
+}

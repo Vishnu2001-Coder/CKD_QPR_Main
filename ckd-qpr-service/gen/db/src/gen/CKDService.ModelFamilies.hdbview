@@ -1,0 +1,10 @@
+VIEW CKDService_ModelFamilies AS SELECT
+  ModelFamilies_0.ID,
+  ModelFamilies_0.createdAt,
+  ModelFamilies_0.createdBy,
+  ModelFamilies_0.modifiedAt,
+  ModelFamilies_0.modifiedBy,
+  ModelFamilies_0.familyName,
+  ModelFamilies_0.description,
+  ModelFamilies_0.modelGroups_ID
+FROM ckd_qpr_db_ModelFamilies AS ModelFamilies_0
