@@ -1,0 +1,7 @@
+VIEW QPRRequest_QPRAttachments AS SELECT
+  QPRAttachments_0.ID,
+  QPRAttachments_0.qprItem_ID,
+  QPRAttachments_0.fileName,
+  QPRAttachments_0.fileType,
+  QPRAttachments_0.fileContent
+FROM QPR_db_QPRAttachments AS QPRAttachments_0

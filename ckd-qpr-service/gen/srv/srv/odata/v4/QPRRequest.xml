@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+    <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="QPRRequest" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <Annotation Term="Core.Links">
+        <Collection>
+          <Record>
+            <PropertyValue Property="rel" String="author"/>
+            <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+          </Record>
+        </Collection>
+      </Annotation>
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="QPRs" EntityType="QPRRequest.QPRs">
+          <NavigationPropertyBinding Path="assembler" Target="Employees"/>
+          <NavigationPropertyBinding Path="department" Target="Department"/>
+          <NavigationPropertyBinding Path="items" Target="QPRItems"/>
+        </EntitySet>
+        <EntitySet Name="QPRItems" EntityType="QPRRequest.QPRItems">
+          <NavigationPropertyBinding Path="qpr" Target="QPRs"/>
+          <NavigationPropertyBinding Path="modelFamily" Target="ModelFamilies"/>
+          <NavigationPropertyBinding Path="part" Target="Parts"/>
+          <NavigationPropertyBinding Path="attachments" Target="QPRAttachments"/>
+        </EntitySet>
+        <EntitySet Name="QPRAttachments" EntityType="QPRRequest.QPRAttachments">
+          <NavigationPropertyBinding Path="qprItem" Target="QPRItems"/>
+        </EntitySet>
+        <EntitySet Name="Employees" EntityType="QPRRequest.Employees">
+          <NavigationPropertyBinding Path="department" Target="Department"/>
+        </EntitySet>
+        <EntitySet Name="Department" EntityType="QPRRequest.Department">
+          <NavigationPropertyBinding Path="employees" Target="Employees"/>
+        </EntitySet>
+        <EntitySet Name="ModelFamilies" EntityType="QPRRequest.ModelFamilies"/>
+        <EntitySet Name="Parts" EntityType="QPRRequest.Parts"/>
+      </EntityContainer>
+      <EntityType Name="QPRs">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="qprNumber" Type="Edm.String" MaxLength="30"/>
+        <Property Name="invoice_ID" Type="Edm.Guid"/>
+        <Property Name="salesOrder_ID" Type="Edm.Guid"/>
+        <Property Name="dateOfContainerReceipt" Type="Edm.Date"/>
+        <Property Name="unpackingDate" Type="Edm.Date"/>
+        <NavigationProperty Name="assembler" Type="QPRRequest.Employees">
+          <ReferentialConstraint Property="assembler_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="assembler_ID" Type="Edm.Guid"/>
+        <Property Name="country" Type="Edm.String" MaxLength="100"/>
+        <NavigationProperty Name="department" Type="QPRRequest.Department">
+          <ReferentialConstraint Property="department_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="department_ID" Type="Edm.Guid"/>
+        <Property Name="plant" Type="Edm.String" MaxLength="50"/>
+        <Property Name="status" Type="Edm.String" MaxLength="30"/>
+        <NavigationProperty Name="items" Type="Collection(QPRRequest.QPRItems)" Partner="qpr">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="QPRItems">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="qpr" Type="QPRRequest.QPRs" Partner="items">
+          <ReferentialConstraint Property="qpr_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="qpr_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="modelFamily" Type="QPRRequest.ModelFamilies">
+          <ReferentialConstraint Property="modelFamily_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="modelFamily_ID" Type="Edm.Guid"/>
+        <Property Name="modelGroup_ID" Type="Edm.Guid"/>
+        <Property Name="hu_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="part" Type="QPRRequest.Parts">
+          <ReferentialConstraint Property="part_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="part_ID" Type="Edm.Guid"/>
+        <Property Name="caseNumber" Type="Edm.String" MaxLength="50"/>
+        <Property Name="invoiceQuantity" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="claimQuantity" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="uom" Type="Edm.String" MaxLength="10"/>
+        <Property Name="partCondition" Type="Edm.String" MaxLength="50"/>
+        <Property Name="packagingCondition" Type="Edm.String" MaxLength="50"/>
+        <Property Name="natureOfDefect" Type="Edm.String" MaxLength="100"/>
+        <Property Name="replacementOrRework" Type="Edm.String" MaxLength="30"/>
+        <Property Name="remarks" Type="Edm.String" MaxLength="500"/>
+        <NavigationProperty Name="attachments" Type="Collection(QPRRequest.QPRAttachments)" Partner="qprItem">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="QPRAttachments">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="qprItem" Type="QPRRequest.QPRItems" Partner="attachments">
+          <ReferentialConstraint Property="qprItem_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="qprItem_ID" Type="Edm.Guid"/>
+        <Property Name="fileName" Type="Edm.String" MaxLength="255"/>
+        <Property Name="fileType" Type="Edm.String" MaxLength="100"/>
+        <Property Name="fileContent" Type="Edm.Stream"/>
+      </EntityType>
+      <EntityType Name="Employees">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="employeeCode" Type="Edm.String" MaxLength="20" Nullable="false"/>
+        <Property Name="employeeName" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="email" Type="Edm.String" MaxLength="100"/>
+        <Property Name="phone" Type="Edm.String" MaxLength="20"/>
+        <Property Name="jobTitle" Type="Edm.String" MaxLength="100"/>
+        <Property Name="employeeType" Type="Edm.String"/>
+        <NavigationProperty Name="department" Type="QPRRequest.Department" Partner="employees">
+          <ReferentialConstraint Property="department_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="department_ID" Type="Edm.Guid"/>
+        <Property Name="status" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Department">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="departmentCode" Type="Edm.String" MaxLength="20" Nullable="false"/>
+        <Property Name="departmentName" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="departmentType" Type="Edm.String"/>
+        <Property Name="status" Type="Edm.String"/>
+        <Property Name="plant_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="employees" Type="Collection(QPRRequest.Employees)" Partner="department">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="ModelFamilies">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="familyName" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="description" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modelGroups_ID" Type="Edm.Guid"/>
+      </EntityType>
+      <EntityType Name="Parts">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="partNumber" Type="Edm.String" MaxLength="40" Nullable="false"/>
+        <Property Name="partName" Type="Edm.String" MaxLength="150"/>
+        <Property Name="quantity" Type="Edm.Int32" DefaultValue="1"/>
+        <Property Name="huContainer_ID" Type="Edm.Guid" Nullable="false"/>
+      </EntityType>
+      <Annotations Target="QPRRequest.QPRs/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.QPRItems/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.QPRAttachments/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.QPRAttachments/fileContent">
+        <Annotation Term="Core.MediaType" Path="fileType"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Employees/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Employees/createdAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Employees/createdBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Employees/modifiedAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Employees/modifiedBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Employees/email">
+        <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Employees/phone">
+        <Annotation Term="Validation.Pattern" String="^\\+[1-9][0-9]{7,14}$"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Employees/employeeType">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="PERMANENT"/>
+              <PropertyValue Property="Value" String="PERMANENT"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="CONTRACT"/>
+              <PropertyValue Property="Value" String="CONTRACT"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="QPRRequest.Employees/status">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="ACTIVE"/>
+              <PropertyValue Property="Value" String="ACTIVE"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="INACTIVE"/>
+              <PropertyValue Property="Value" String="INACTIVE"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="QPRRequest.Department/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Department/createdAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Department/createdBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Department/modifiedAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Department/modifiedBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Department/departmentType">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="ORDER_DEALER"/>
+              <PropertyValue Property="Value" String="ORDER_DEALER"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="RETURN_DEALER"/>
+              <PropertyValue Property="Value" String="RETURN_DEALER"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="QPRRequest.Department/status">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="ACTIVE"/>
+              <PropertyValue Property="Value" String="ACTIVE"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="INACTIVE"/>
+              <PropertyValue Property="Value" String="INACTIVE"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/createdAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/createdBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/modifiedAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/modifiedBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/createdAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/createdBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/modifiedAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/modifiedBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
