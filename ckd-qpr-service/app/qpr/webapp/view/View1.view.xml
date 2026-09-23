@@ -1,0 +1,168 @@
+<mvc:View
+    xmlns="sap.f"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:sfb="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    controllerName="qpr.controller.View1"
+    height="100%">
+
+    <DynamicPage
+        id="dynamicPage"
+        fitContent="true">
+
+        <!-- ================================================= -->
+        <!-- PAGE TITLE -->
+        <!-- ================================================= -->
+
+        <title>
+            <DynamicPageTitle>
+
+                <heading>
+                    <m:Title
+                        text="Create QPR – Quality Product Report"
+                        level="H2" />
+                </heading>
+
+            </DynamicPageTitle>
+        </title>
+
+
+        <!-- ================================================= -->
+        <!-- FILTER BAR -->
+        <!-- ================================================= -->
+
+        <header>
+
+            <DynamicPageHeader>
+
+           <sfb:SmartFilterBar
+    id="smartFilterBar"
+    entitySet="QPRs"
+    persistencyKey="QPRFilterBar"
+    showGoOnFB="true"
+    useToolbar="false">
+
+    <sfb:controlConfiguration>
+
+        <sfb:ControlConfiguration
+            key="invoiceNo"
+            label="Invoice Number"
+            visibleInAdvancedArea="true"
+            mandatory="mandatory"
+         />
+
+        <sfb:ControlConfiguration
+            key="salesOrder"
+            label="Sales Order"
+            visibleInAdvancedArea="true" />
+
+        <sfb:ControlConfiguration
+            key="dateOfContainerReceipt"
+            label="Date of Container Receipt"
+            visibleInAdvancedArea="true" />
+
+        <sfb:ControlConfiguration
+            key="unpackingDate"
+            label="Unpacking Date"
+            visibleInAdvancedArea="true" />
+
+        <sfb:ControlConfiguration
+            key="assembler"
+            label="Assembler Name"
+            visibleInAdvancedArea="true" />
+
+        <sfb:ControlConfiguration
+            key="country"
+            label="Country"
+            visibleInAdvancedArea="true" />
+
+        <sfb:ControlConfiguration
+            key="department"
+            label="Department"
+            visibleInAdvancedArea="true" />
+
+        <sfb:ControlConfiguration
+            key="plant"
+            label="Plant"
+            visibleInAdvancedArea="true" />
+
+    </sfb:controlConfiguration>
+
+</sfb:SmartFilterBar>   
+
+            </DynamicPageHeader>
+
+        </header>
+        <!-- mandatory="mandatory"  -->
+
+        <!-- ================================================= -->
+        <!-- CONTENT -->
+        <!-- ================================================= -->
+
+        <content>
+
+            <m:VBox
+                width="100%">
+
+                <!-- ================================================= -->
+                <!-- QPR ITEMS TABLE -->
+                <!-- ================================================= -->
+
+                <smartTable:SmartTable
+                    id="qprTable"
+                    tableType="Table"
+                    entitySet="QPRs"
+                    header="Invoices"
+                     smartFilterId="smartFilterBar"
+                    showRowCount="true"
+                    enableAutoColumnWidth="true"
+                    useTablePersonalisation="true"
+                    initiallyVisibleFields="invoiceNo"
+                    visible="true"
+                    enableAutoBinding="true">
+
+
+                    <smartTable:layoutData>
+
+                        <m:FlexItemData
+                            growFactor="1"
+                            baseSize="0%" />
+
+                    </smartTable:layoutData>
+
+                </smartTable:SmartTable>
+
+
+                <!-- ================================================= -->
+                <!-- BUTTONS -->
+                <!-- ================================================= -->
+
+                <m:HBox
+                    width="100%"
+                    justifyContent="End"
+                    class="sapUiMediumMarginTop sapUiMediumMarginEnd">
+
+                    <m:Button
+                        id="saveButton"
+                        text="Save"
+                        type="Default"
+                        press=".onSave"
+                        class="sapUiSmallMarginEnd" />
+
+                    <m:Button
+                        id="submitButton"
+                        text="Submit"
+                        type="Emphasized"
+                        press=".onSubmit" />
+
+                </m:HBox>
+
+            </m:VBox>
+
+        </content>
+
+    </DynamicPage>
+
+</mvc:View>

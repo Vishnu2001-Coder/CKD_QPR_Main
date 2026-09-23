@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema Namespace="CKDService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <Annotation Term="Core.Links" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Collection>
+          <Record>
+            <PropertyValue Property="rel" String="author"/>
+            <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+          </Record>
+        </Collection>
+      </Annotation>
+      <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Plants" EntityType="CKDService.Plants"/>
+        <EntitySet Name="Department" EntityType="CKDService.Department"/>
+        <EntitySet Name="Employees" EntityType="CKDService.Employees"/>
+        <EntitySet Name="SalesOrders" EntityType="CKDService.SalesOrders"/>
+        <EntitySet Name="SalesOrderItems" EntityType="CKDService.SalesOrderItems"/>
+        <EntitySet Name="Invoices" EntityType="CKDService.Invoices"/>
+        <EntitySet Name="ModelFamilies" EntityType="CKDService.ModelFamilies"/>
+        <AssociationSet Name="Department_plant" Association="CKDService.Department_plant">
+          <End Role="Department" EntitySet="Department"/>
+          <End Role="Plants" EntitySet="Plants"/>
+        </AssociationSet>
+        <AssociationSet Name="Employees_department" Association="CKDService.Employees_department">
+          <End Role="Employees" EntitySet="Employees"/>
+          <End Role="Department" EntitySet="Department"/>
+        </AssociationSet>
+        <AssociationSet Name="SalesOrders_plant" Association="CKDService.SalesOrders_plant">
+          <End Role="SalesOrders" EntitySet="SalesOrders"/>
+          <End Role="Plants" EntitySet="Plants"/>
+        </AssociationSet>
+        <AssociationSet Name="SalesOrderItems_salesOrder" Association="CKDService.SalesOrderItems_salesOrder">
+          <End Role="SalesOrderItems" EntitySet="SalesOrderItems"/>
+          <End Role="SalesOrders" EntitySet="SalesOrders"/>
+        </AssociationSet>
+        <AssociationSet Name="SalesOrderItems_modelFamily" Association="CKDService.SalesOrderItems_modelFamily">
+          <End Role="SalesOrderItems" EntitySet="SalesOrderItems"/>
+          <End Role="ModelFamilies" EntitySet="ModelFamilies"/>
+        </AssociationSet>
+        <AssociationSet Name="Invoices_salesOrder" Association="CKDService.Invoices_salesOrder">
+          <End Role="Invoices" EntitySet="Invoices"/>
+          <End Role="SalesOrders" EntitySet="SalesOrders"/>
+        </AssociationSet>
+      </EntityContainer>
+      <EntityType Name="Plants">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="plantCode" Type="Edm.String" MaxLength="10" Nullable="false"/>
+        <Property Name="address" Type="Edm.String" MaxLength="255"/>
+        <Property Name="city" Type="Edm.String" MaxLength="50"/>
+        <Property Name="state" Type="Edm.String" MaxLength="50"/>
+        <Property Name="country" Type="Edm.String" MaxLength="50"/>
+        <Property Name="plantName" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="plantType" Type="Edm.String"/>
+        <NavigationProperty Name="departments" Relationship="CKDService.Department_plant" FromRole="Plants" ToRole="Department"/>
+        <Property Name="status" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Department">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="departmentCode" Type="Edm.String" MaxLength="20" Nullable="false"/>
+        <Property Name="departmentName" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="departmentType" Type="Edm.String"/>
+        <Property Name="status" Type="Edm.String"/>
+        <NavigationProperty Name="plant" Relationship="CKDService.Department_plant" FromRole="Department" ToRole="Plants"/>
+        <Property Name="plant_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="employees" Relationship="CKDService.Employees_department" FromRole="Department" ToRole="Employees"/>
+      </EntityType>
+      <EntityType Name="Employees">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="employeeCode" Type="Edm.String" MaxLength="20" Nullable="false"/>
+        <Property Name="employeeName" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="email" Type="Edm.String" MaxLength="100"/>
+        <Property Name="phone" Type="Edm.String" MaxLength="20"/>
+        <Property Name="jobTitle" Type="Edm.String" MaxLength="100"/>
+        <Property Name="employeeType" Type="Edm.String"/>
+        <NavigationProperty Name="department" Relationship="CKDService.Employees_department" FromRole="Employees" ToRole="Department"/>
+        <Property Name="department_ID" Type="Edm.Guid"/>
+        <Property Name="status" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="SalesOrders">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="salesOrderNo" Type="Edm.String" MaxLength="20" Nullable="false"/>
+        <Property Name="orderDate" Type="Edm.DateTime" sap:display-format="Date"/>
+        <NavigationProperty Name="plant" Relationship="CKDService.SalesOrders_plant" FromRole="SalesOrders" ToRole="Plants"/>
+        <Property Name="plant_ID" Type="Edm.Guid"/>
+        <Property Name="totalOrderPrice" Type="Edm.Decimal" Precision="15" Scale="2"/>
+        <Property Name="currency" Type="Edm.String" MaxLength="3"/>
+        <Property Name="status" Type="Edm.String"/>
+        <NavigationProperty Name="items" Relationship="CKDService.SalesOrderItems_salesOrder" FromRole="SalesOrders" ToRole="SalesOrderItems"/>
+      </EntityType>
+      <EntityType Name="SalesOrderItems">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <NavigationProperty Name="salesOrder" Relationship="CKDService.SalesOrderItems_salesOrder" FromRole="SalesOrderItems" ToRole="SalesOrders"/>
+        <Property Name="salesOrder_ID" Type="Edm.Guid"/>
+        <Property Name="itemNo" Type="Edm.Int32" Nullable="false"/>
+        <NavigationProperty Name="modelFamily" Relationship="CKDService.SalesOrderItems_modelFamily" FromRole="SalesOrderItems" ToRole="ModelFamilies"/>
+        <Property Name="modelFamily_ID" Type="Edm.Guid"/>
+        <Property Name="quantity" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="unitPrice" Type="Edm.Decimal" Precision="15" Scale="2"/>
+        <Property Name="totalItemPrice" Type="Edm.Decimal" Precision="15" Scale="2"/>
+        <Property Name="currency" Type="Edm.String" MaxLength="3"/>
+      </EntityType>
+      <EntityType Name="Invoices">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="invoiceNo" Type="Edm.String" MaxLength="20" Nullable="false"/>
+        <Property Name="invoiceDate" Type="Edm.DateTime" sap:display-format="Date"/>
+        <Property Name="dueDate" Type="Edm.DateTime" sap:display-format="Date"/>
+        <NavigationProperty Name="salesOrder" Relationship="CKDService.Invoices_salesOrder" FromRole="Invoices" ToRole="SalesOrders"/>
+        <Property Name="salesOrder_ID" Type="Edm.Guid"/>
+        <Property Name="netAmount" Type="Edm.Decimal" Precision="15" Scale="2"/>
+        <Property Name="taxAmount" Type="Edm.Decimal" Precision="15" Scale="2"/>
+        <Property Name="totalAmount" Type="Edm.Decimal" Precision="15" Scale="2"/>
+        <Property Name="currency" Type="Edm.String" MaxLength="3"/>
+        <Property Name="status" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="ModelFamilies">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="familyName" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="description" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modelGroups_ID" Type="Edm.Guid"/>
+      </EntityType>
+      <Association Name="Department_plant">
+        <End Role="Department" Type="CKDService.Department" Multiplicity="*"/>
+        <End Role="Plants" Type="CKDService.Plants" Multiplicity="0..1">
+          <OnDelete Action="Cascade"/>
+        </End>
+        <ReferentialConstraint>
+          <Principal Role="Plants">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="Department">
+            <PropertyRef Name="plant_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Employees_department">
+        <End Role="Employees" Type="CKDService.Employees" Multiplicity="*"/>
+        <End Role="Department" Type="CKDService.Department" Multiplicity="0..1">
+          <OnDelete Action="Cascade"/>
+        </End>
+        <ReferentialConstraint>
+          <Principal Role="Department">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="Employees">
+            <PropertyRef Name="department_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="SalesOrders_plant">
+        <End Role="SalesOrders" Type="CKDService.SalesOrders" Multiplicity="*"/>
+        <End Role="Plants" Type="CKDService.Plants" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="Plants">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="SalesOrders">
+            <PropertyRef Name="plant_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="SalesOrderItems_salesOrder">
+        <End Role="SalesOrderItems" Type="CKDService.SalesOrderItems" Multiplicity="*"/>
+        <End Role="SalesOrders" Type="CKDService.SalesOrders" Multiplicity="0..1">
+          <OnDelete Action="Cascade"/>
+        </End>
+        <ReferentialConstraint>
+          <Principal Role="SalesOrders">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="SalesOrderItems">
+            <PropertyRef Name="salesOrder_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="SalesOrderItems_modelFamily">
+        <End Role="SalesOrderItems" Type="CKDService.SalesOrderItems" Multiplicity="*"/>
+        <End Role="ModelFamilies" Type="CKDService.ModelFamilies" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="ModelFamilies">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="SalesOrderItems">
+            <PropertyRef Name="modelFamily_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Invoices_salesOrder">
+        <End Role="Invoices" Type="CKDService.Invoices" Multiplicity="*"/>
+        <End Role="SalesOrders" Type="CKDService.SalesOrders" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="SalesOrders">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="Invoices">
+            <PropertyRef Name="salesOrder_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Annotations Target="CKDService.Plants/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CKDService.Plants/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Plants/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Plants/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Plants/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Plants/plantType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="MANUFACTURING"/>
+              <PropertyValue Property="Value" String="MANUFACTURING"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="ASSEMBLY"/>
+              <PropertyValue Property="Value" String="ASSEMBLY"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="WAREHOUSE"/>
+              <PropertyValue Property="Value" String="WAREHOUSE"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CKDService.Plants/status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="ACTIVE"/>
+              <PropertyValue Property="Value" String="ACTIVE"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="INACTIVE"/>
+              <PropertyValue Property="Value" String="INACTIVE"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CKDService.Department/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CKDService.Department/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Department/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Department/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Department/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Department/departmentType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="ORDER_DEALER"/>
+              <PropertyValue Property="Value" String="ORDER_DEALER"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="RETURN_DEALER"/>
+              <PropertyValue Property="Value" String="RETURN_DEALER"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CKDService.Department/status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="ACTIVE"/>
+              <PropertyValue Property="Value" String="ACTIVE"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="INACTIVE"/>
+              <PropertyValue Property="Value" String="INACTIVE"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CKDService.Employees/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CKDService.Employees/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Employees/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Employees/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Employees/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Employees/email" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"/>
+      </Annotations>
+      <Annotations Target="CKDService.Employees/phone" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.Pattern" String="^\\+[1-9][0-9]{7,14}$"/>
+      </Annotations>
+      <Annotations Target="CKDService.Employees/employeeType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="PERMANENT"/>
+              <PropertyValue Property="Value" String="PERMANENT"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="CONTRACT"/>
+              <PropertyValue Property="Value" String="CONTRACT"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CKDService.Employees/status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="ACTIVE"/>
+              <PropertyValue Property="Value" String="ACTIVE"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="INACTIVE"/>
+              <PropertyValue Property="Value" String="INACTIVE"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrders/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrders/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrders/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrders/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrders/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrders/status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="CREATED"/>
+              <PropertyValue Property="Value" String="CREATED"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="CONFIRMED"/>
+              <PropertyValue Property="Value" String="CONFIRMED"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="IN_PROGRESS"/>
+              <PropertyValue Property="Value" String="IN_PROGRESS"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="COMPLETED"/>
+              <PropertyValue Property="Value" String="COMPLETED"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="CANCELLED"/>
+              <PropertyValue Property="Value" String="CANCELLED"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrderItems/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrderItems/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrderItems/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrderItems/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.SalesOrderItems/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Invoices/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CKDService.Invoices/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Invoices/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Invoices/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Invoices/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.Invoices/status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="DRAFT"/>
+              <PropertyValue Property="Value" String="DRAFT"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="POSTED"/>
+              <PropertyValue Property="Value" String="POSTED"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="PAID"/>
+              <PropertyValue Property="Value" String="PAID"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="CANCELLED"/>
+              <PropertyValue Property="Value" String="CANCELLED"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CKDService.ModelFamilies/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CKDService.ModelFamilies/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.ModelFamilies/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="CKDService.ModelFamilies/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="CKDService.ModelFamilies/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
