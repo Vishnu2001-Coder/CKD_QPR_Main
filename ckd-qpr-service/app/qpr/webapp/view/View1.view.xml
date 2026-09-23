@@ -8,6 +8,29 @@
     controllerName="qpr.controller.View1"
     height="100%">
 
+
+    <!-- ================================================= -->
+    <!-- CUSTOM NAVY HEADER (ShellBar) -->
+    <!-- ================================================= -->
+
+    <!-- <ShellBar
+        id="qprShellBar"
+        class="qprShellBar"
+        title="Create QPR – Quality Product Report"
+        homeIcon="sap-icon://sap-logo"
+        showSearch="true"
+        showNotifications="true"
+         /> -->
+
+    <ShellBar
+        id="qprShellBar"
+        class="qprShellBar"
+        homeIcon="img/sap_logo.png"
+        homeIconTooltip="SAP"
+        title="Create QPR – Quality Product Report"
+        showSearch="true"
+        showNotifications="true"
+    />
     <DynamicPage
         id="dynamicPage"
         fitContent="true">
@@ -21,7 +44,7 @@
 
                 <heading>
                     <m:Title
-                        text="Create QPR – Quality Product Report"
+                        text="General Information"
                         level="H2" />
                 </heading>
 
@@ -37,60 +60,127 @@
 
             <DynamicPageHeader>
 
-           <sfb:SmartFilterBar
-    id="smartFilterBar"
-    entitySet="QPRs"
-    persistencyKey="QPRFilterBar"
-    showGoOnFB="true"
-    useToolbar="false">
+                <sfb:SmartFilterBar
+                    id="smartFilterBar"
+                    entitySet="QPRs"
+                    persistencyKey="QPRFilterBar"
+                    showGoOnFB="true"
+                    useToolbar="false">
 
-    <sfb:controlConfiguration>
+                    <sfb:controlConfiguration>
 
-        <sfb:ControlConfiguration
-            key="invoiceNo"
-            label="Invoice Number"
-            visibleInAdvancedArea="true"
-            mandatory="mandatory"
-         />
+                        <!-- Invoice Number -->
+                        <sfb:ControlConfiguration
+                            key="invoiceNo"
+                            label="Invoice Number"
+                            visibleInAdvancedArea="true"
+                            mandatory="mandatory">
+                            <sfb:customControl>                                    <!-- combo box for value List-->
+                           <m:ComboBox
+                                    id="invoiceCombo"
+                                    items="{ckd>/Invoices}"
+                                    selectedKey="{invoiceNo}">
+                                    <core:Item
+                                        key="{ckd>ID}"
+                                        text="{ckd>invoiceNo}" />     <!-- key important like binding  context --> <!-- text which is show the Ui ,after select user , we getting a value based key -->
+                                </m:ComboBox>
+                            </sfb:customControl>
+                        </sfb:ControlConfiguration>
 
-        <sfb:ControlConfiguration
-            key="salesOrder"
-            label="Sales Order"
-            visibleInAdvancedArea="true" />
+                        <sfb:ControlConfiguration
+                            key="salesOrder"
+                            label="Sales Order"
+                            visibleInAdvancedArea="true"
+                             mandatory="mandatory">
+                            <sfb:customControl>
+                                <m:Input value="{salesOrderID>/ID}" editable="false" />    <!-- input to get the user input-->
+                            </sfb:customControl>
+                        </sfb:ControlConfiguration>
 
-        <sfb:ControlConfiguration
-            key="dateOfContainerReceipt"
-            label="Date of Container Receipt"
-            visibleInAdvancedArea="true" />
+                        <sfb:ControlConfiguration
+                            key="dateOfContainerReceipt"
+                            label="Date of Container Receipt"
+                            visibleInAdvancedArea="true"
+                             mandatory="mandatory">
+                             <sfb:customControl>
+                                <m:DatePicker value="{salesOrderID>/recieptDate}" editable="true" />    <!-- input to get the user input-->
+                            </sfb:customControl>
+                             </sfb:ControlConfiguration>
 
-        <sfb:ControlConfiguration
-            key="unpackingDate"
-            label="Unpacking Date"
-            visibleInAdvancedArea="true" />
+                        <sfb:ControlConfiguration
+                            key="unpackingDate"
+                            label="Unpacking Date"
+                            visibleInAdvancedArea="true"
+                             mandatory="mandatory" >
+                                <sfb:customControl>
+                                 <m:DatePicker value="{salesOrderID>/unpackedDate}" editable="true" />    <!-- input to get the user input-->
+                            </sfb:customControl>
+                             </sfb:ControlConfiguration>
 
-        <sfb:ControlConfiguration
-            key="assembler"
-            label="Assembler Name"
-            visibleInAdvancedArea="true" />
 
-        <sfb:ControlConfiguration
-            key="country"
-            label="Country"
-            visibleInAdvancedArea="true" />
+                        <sfb:ControlConfiguration
+                            key="assembler"
+                            label="Assembler Name"
+                            visibleInAdvancedArea="true" 
+                             mandatory="mandatory">
+                                <sfb:customControl>
+                                <m:Input value="{salesOrderID>/assemblerName}" editable="false" />    <!-- input to get the user input-->
+                            </sfb:customControl>
+                             </sfb:ControlConfiguration>
 
-        <sfb:ControlConfiguration
-            key="department"
-            label="Department"
-            visibleInAdvancedArea="true" />
 
-        <sfb:ControlConfiguration
-            key="plant"
-            label="Plant"
-            visibleInAdvancedArea="true" />
+                        <sfb:ControlConfiguration
+                            key="country"
+                            label="Country"
+                            visibleInAdvancedArea="true">
+                                <sfb:customControl>
+                                <m:Input value="{salesOrderID>/country}" editable="false" />    <!-- input to get the user input-->
+                            </sfb:customControl>
+                             </sfb:ControlConfiguration>
 
-    </sfb:controlConfiguration>
 
-</sfb:SmartFilterBar>   
+                        <sfb:ControlConfiguration
+                            key="department"
+                            label="Department"
+                            visibleInAdvancedArea="true"
+                             mandatory="mandatory">
+                            <sfb:customControl>
+
+                                <m:ComboBox
+                                    id="departmentCombo"
+                                    items="{ckd>/Department}"
+                                    selectedKey="{departmentName}">
+
+                                    <core:Item
+                                        key="{ckd>ID}"
+                                        text="{ckd>departmentName}" />
+                                </m:ComboBox>
+                            </sfb:customControl>
+                        </sfb:ControlConfiguration>
+
+                        <sfb:ControlConfiguration
+                            key="plant"
+                            label="Plant"
+                            visibleInAdvancedArea="true"
+                             mandatory="mandatory">
+                            <sfb:customControl>
+
+                                <m:ComboBox
+                                    id="plantCombo"
+                                    items="{ckd>/Plants}"
+                                    selectedKey="{plantName}">
+
+                                    <core:Item
+                                        key="{ckd>ID}"
+                                        text="{ckd>plantName}" />
+
+                                </m:ComboBox>
+                            </sfb:customControl>
+                        </sfb:ControlConfiguration>
+
+                    </sfb:controlConfiguration>
+
+                </sfb:SmartFilterBar>
 
             </DynamicPageHeader>
 
@@ -114,8 +204,8 @@
                     id="qprTable"
                     tableType="Table"
                     entitySet="QPRs"
-                    header="Invoices"
-                     smartFilterId="smartFilterBar"
+                    header="QPR Line Items"
+                    smartFilterId="smartFilterBar"
                     showRowCount="true"
                     enableAutoColumnWidth="true"
                     useTablePersonalisation="true"
