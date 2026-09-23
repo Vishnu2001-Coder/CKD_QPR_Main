@@ -1,1 +1,48 @@
-/* Enter your custom styles here */
+/* .qprShellBar {
+    background-color: #1B3A5C !important;
+    border-bottom: none !important;
+}
+
+.qprShellBar * {
+    opacity: 1 !important;
+}
+
+.qprShellBar .sapFShellBarTitle,
+.qprShellBar .sapFShellBarTitleText,
+.qprShellBar .sapMTitle {
+    color: #FFFFFF !important;
+    font-family: "72", Arial, sans-serif !important;
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+} */
+
+.qprShellBar {
+    background-color: #1B3A5C !important;
+    border-bottom: none !important;
+}
+
+/* Header title */
+.qprShellBar .sapFShellBarTitle,
+.qprShellBar .sapFShellBarTitleText,
+.qprShellBar .sapMTitle {
+    color: #FFFFFF !important;
+    opacity: 1 !important;
+    font-family: "72", Arial, sans-serif !important;
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+}
+
+/* Search and Notification icons */
+.qprShellBar .sapFShellBarButton {
+    opacity: 1 !important;
+}
+
+.qprShellBar .sapFShellBarButton .sapMBtnIcon {
+    color: #FFFFFF !important;
+    opacity: 1 !important;
+}
+
+.qprShellBar .sapFShellBarButton:hover .sapMBtnIcon {
+    color: #FFFFFF !important;
+    opacity: 1 !important;
+}
