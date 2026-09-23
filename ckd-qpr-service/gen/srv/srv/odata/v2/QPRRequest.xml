@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema Namespace="QPRRequest" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <Annotation Term="Core.Links" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Collection>
+          <Record>
+            <PropertyValue Property="rel" String="author"/>
+            <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+          </Record>
+        </Collection>
+      </Annotation>
+      <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="QPRs" EntityType="QPRRequest.QPRs"/>
+        <EntitySet Name="QPRItems" EntityType="QPRRequest.QPRItems"/>
+        <EntitySet Name="QPRAttachments" EntityType="QPRRequest.QPRAttachments"/>
+        <EntitySet Name="ModelFamilies" EntityType="QPRRequest.ModelFamilies"/>
+        <EntitySet Name="Parts" EntityType="QPRRequest.Parts"/>
+        <AssociationSet Name="QPRItems_qpr" Association="QPRRequest.QPRItems_qpr">
+          <End Role="QPRItems" EntitySet="QPRItems"/>
+          <End Role="QPRs" EntitySet="QPRs"/>
+        </AssociationSet>
+        <AssociationSet Name="QPRItems_modelFamily" Association="QPRRequest.QPRItems_modelFamily">
+          <End Role="QPRItems" EntitySet="QPRItems"/>
+          <End Role="ModelFamilies" EntitySet="ModelFamilies"/>
+        </AssociationSet>
+        <AssociationSet Name="QPRItems_part" Association="QPRRequest.QPRItems_part">
+          <End Role="QPRItems" EntitySet="QPRItems"/>
+          <End Role="Parts" EntitySet="Parts"/>
+        </AssociationSet>
+        <AssociationSet Name="QPRAttachments_qprItem" Association="QPRRequest.QPRAttachments_qprItem">
+          <End Role="QPRAttachments" EntitySet="QPRAttachments"/>
+          <End Role="QPRItems" EntitySet="QPRItems"/>
+        </AssociationSet>
+      </EntityContainer>
+      <EntityType Name="QPRs">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="qprNumber" Type="Edm.String" MaxLength="30"/>
+        <Property Name="invoice" Type="Edm.String" MaxLength="100"/>
+        <Property Name="salesOrder" Type="Edm.String" MaxLength="100"/>
+        <Property Name="dateOfContainerReceipt" Type="Edm.DateTime" sap:display-format="Date"/>
+        <Property Name="unpackingDate" Type="Edm.DateTime" sap:display-format="Date"/>
+        <Property Name="assembler" Type="Edm.String" MaxLength="100"/>
+        <Property Name="country" Type="Edm.String" MaxLength="100"/>
+        <Property Name="department" Type="Edm.String" MaxLength="100"/>
+        <Property Name="plant" Type="Edm.String" MaxLength="50"/>
+        <Property Name="status" Type="Edm.String" MaxLength="30"/>
+        <NavigationProperty Name="items" Relationship="QPRRequest.QPRItems_qpr" FromRole="QPRs" ToRole="QPRItems"/>
+      </EntityType>
+      <EntityType Name="QPRItems">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="qpr" Relationship="QPRRequest.QPRItems_qpr" FromRole="QPRItems" ToRole="QPRs"/>
+        <Property Name="qpr_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="modelFamily" Relationship="QPRRequest.QPRItems_modelFamily" FromRole="QPRItems" ToRole="ModelFamilies"/>
+        <Property Name="modelFamily_ID" Type="Edm.Guid"/>
+        <Property Name="modelGroup_ID" Type="Edm.Guid"/>
+        <Property Name="hu_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="part" Relationship="QPRRequest.QPRItems_part" FromRole="QPRItems" ToRole="Parts"/>
+        <Property Name="part_ID" Type="Edm.Guid"/>
+        <Property Name="caseNumber" Type="Edm.String" MaxLength="50"/>
+        <Property Name="invoiceQuantity" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="claimQuantity" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="uom" Type="Edm.String" MaxLength="10"/>
+        <Property Name="partCondition" Type="Edm.String" MaxLength="50"/>
+        <Property Name="packagingCondition" Type="Edm.String" MaxLength="50"/>
+        <Property Name="natureOfDefect" Type="Edm.String" MaxLength="100"/>
+        <Property Name="replacementOrRework" Type="Edm.String" MaxLength="30"/>
+        <Property Name="remarks" Type="Edm.String" MaxLength="500"/>
+        <NavigationProperty Name="attachments" Relationship="QPRRequest.QPRAttachments_qprItem" FromRole="QPRItems" ToRole="QPRAttachments"/>
+      </EntityType>
+      <EntityType Name="QPRAttachments" m:HasStream="true">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="qprItem" Relationship="QPRRequest.QPRAttachments_qprItem" FromRole="QPRAttachments" ToRole="QPRItems"/>
+        <Property Name="qprItem_ID" Type="Edm.Guid"/>
+        <Property Name="fileName" Type="Edm.String" MaxLength="255"/>
+        <Property Name="fileType" Type="Edm.String" MaxLength="100"/>
+      </EntityType>
+      <EntityType Name="ModelFamilies">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="familyName" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="description" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modelGroups_ID" Type="Edm.Guid"/>
+      </EntityType>
+      <EntityType Name="Parts">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="partNumber" Type="Edm.String" MaxLength="40" Nullable="false"/>
+        <Property Name="partName" Type="Edm.String" MaxLength="150"/>
+        <Property Name="quantity" Type="Edm.Int32"/>
+        <Property Name="huContainer_ID" Type="Edm.Guid" Nullable="false"/>
+      </EntityType>
+      <Association Name="QPRItems_qpr">
+        <End Role="QPRItems" Type="QPRRequest.QPRItems" Multiplicity="*"/>
+        <End Role="QPRs" Type="QPRRequest.QPRs" Multiplicity="0..1">
+          <OnDelete Action="Cascade"/>
+        </End>
+        <ReferentialConstraint>
+          <Principal Role="QPRs">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="QPRItems">
+            <PropertyRef Name="qpr_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="QPRItems_modelFamily">
+        <End Role="QPRItems" Type="QPRRequest.QPRItems" Multiplicity="*"/>
+        <End Role="ModelFamilies" Type="QPRRequest.ModelFamilies" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="ModelFamilies">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="QPRItems">
+            <PropertyRef Name="modelFamily_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="QPRItems_part">
+        <End Role="QPRItems" Type="QPRRequest.QPRItems" Multiplicity="*"/>
+        <End Role="Parts" Type="QPRRequest.Parts" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="Parts">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="QPRItems">
+            <PropertyRef Name="part_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="QPRAttachments_qprItem">
+        <End Role="QPRAttachments" Type="QPRRequest.QPRAttachments" Multiplicity="*"/>
+        <End Role="QPRItems" Type="QPRRequest.QPRItems" Multiplicity="0..1">
+          <OnDelete Action="Cascade"/>
+        </End>
+        <ReferentialConstraint>
+          <Principal Role="QPRItems">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="QPRAttachments">
+            <PropertyRef Name="qprItem_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Annotations Target="QPRRequest.QPRs/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.QPRItems/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.QPRAttachments" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.MediaType" Path="fileType"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.QPRAttachments/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.ModelFamilies/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="QPRRequest.Parts/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

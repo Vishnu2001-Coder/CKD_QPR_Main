@@ -9,18 +9,18 @@ entity QPRs {
 
         qprNumber              : String(30);
 
-        invoice                : Association to Invoices;
+        invoice                :  String(100);                 //Association to Invoices;
 
-        salesOrder             : Association to SalesOrders;
+        salesOrder             : String(100);                  //Association to SalesOrders;
 
         dateOfContainerReceipt : Date;
         unpackingDate          : Date;
 
-        assembler              : Association to Employees;
+        assembler              : String(100);                    //Association to Employees;
         
         country                : String(100);
 
-        department             : Association to Departments;
+        department             :  String(100);                        //Association to Departments;
         plant                  : String(50);
 
         status                 : String(30);
