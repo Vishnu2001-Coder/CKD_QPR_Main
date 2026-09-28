@@ -65,7 +65,8 @@
                     entitySet="QPRs"
                     persistencyKey="QPRFilterBar"
                     showGoOnFB="true"
-                    useToolbar="false">
+                    useToolbar="false"
+                     search=".onGo">                                          <!--Manually set the event -->
 
                     <sfb:controlConfiguration>
 
@@ -76,13 +77,16 @@
                             visibleInAdvancedArea="true"
                             mandatory="mandatory">
                             <sfb:customControl>                                    <!-- combo box for value List-->
-                           <m:ComboBox
+                                <m:ComboBox
                                     id="invoiceCombo"
                                     items="{ckd>/Invoices}"
-                                    selectedKey="{invoiceNo}">
+                                    selectedKey="{invoiceNo}"
+                                    selectionChange=".onInvoiceFilterChange">
                                     <core:Item
                                         key="{ckd>ID}"
-                                        text="{ckd>invoiceNo}" />     <!-- key important like binding  context --> <!-- text which is show the Ui ,after select user , we getting a value based key -->
+                                        text="{ckd>invoiceNo}" />                     <!-- key important like binding
+                                                                                      context --> <!-- text which is show the Ui
+                                                                                     ,after select user , we getting a value based key -->
                                 </m:ComboBox>
                             </sfb:customControl>
                         </sfb:ControlConfiguration>
@@ -91,9 +95,10 @@
                             key="salesOrder"
                             label="Sales Order"
                             visibleInAdvancedArea="true"
-                             mandatory="mandatory">
+                            mandatory="mandatory">
                             <sfb:customControl>
-                                <m:Input value="{salesOrderID>/ID}" editable="false" />    <!-- input to get the user input-->
+                                <m:Input value="{FilterData>/salesOrderNo}" editable="false" />    <!-- input to
+                                get the user input-->
                             </sfb:customControl>
                         </sfb:ControlConfiguration>
 
@@ -101,49 +106,53 @@
                             key="dateOfContainerReceipt"
                             label="Date of Container Receipt"
                             visibleInAdvancedArea="true"
-                             mandatory="mandatory">
-                             <sfb:customControl>
-                                <m:DatePicker value="{salesOrderID>/recieptDate}" editable="true" />    <!-- input to get the user input-->
+                           >
+                            <sfb:customControl>
+                                <m:DatePicker value="{FilterData>/recieptDate}" editable="true" />    <!--
+                                input to get the user input-->
                             </sfb:customControl>
-                             </sfb:ControlConfiguration>
+                        </sfb:ControlConfiguration>
 
                         <sfb:ControlConfiguration
                             key="unpackingDate"
                             label="Unpacking Date"
                             visibleInAdvancedArea="true"
-                             mandatory="mandatory" >
-                                <sfb:customControl>
-                                 <m:DatePicker value="{salesOrderID>/unpackedDate}" editable="true" />    <!-- input to get the user input-->
+                           >
+                            <sfb:customControl>
+                                <m:DatePicker value="{FilterData>/unpackedDate}" editable="true" />    <!--
+                                input to get the user input-->
                             </sfb:customControl>
-                             </sfb:ControlConfiguration>
+                        </sfb:ControlConfiguration>
 
 
                         <sfb:ControlConfiguration
                             key="assembler"
                             label="Assembler Name"
-                            visibleInAdvancedArea="true" 
-                             mandatory="mandatory">
-                                <sfb:customControl>
-                                <m:Input value="{salesOrderID>/assemblerName}" editable="false" />    <!-- input to get the user input-->
+                            visibleInAdvancedArea="true"
+                           >
+                            <sfb:customControl>
+                                <m:Input value="{FilterData>/assemblerName}" editable="false" />    <!--
+                                input to get the user input-->
                             </sfb:customControl>
-                             </sfb:ControlConfiguration>
+                        </sfb:ControlConfiguration>
 
 
                         <sfb:ControlConfiguration
                             key="country"
                             label="Country"
                             visibleInAdvancedArea="true">
-                                <sfb:customControl>
-                                <m:Input value="{salesOrderID>/country}" editable="false" />    <!-- input to get the user input-->
+                            <sfb:customControl>
+                                <m:Input value="{FilterData>/country}" editable="false" />    <!--
+                                input to get the user input-->
                             </sfb:customControl>
-                             </sfb:ControlConfiguration>
+                        </sfb:ControlConfiguration>
 
 
                         <sfb:ControlConfiguration
                             key="department"
                             label="Department"
                             visibleInAdvancedArea="true"
-                             mandatory="mandatory">
+                           >
                             <sfb:customControl>
 
                                 <m:ComboBox
@@ -162,7 +171,7 @@
                             key="plant"
                             label="Plant"
                             visibleInAdvancedArea="true"
-                             mandatory="mandatory">
+                           >
                             <sfb:customControl>
 
                                 <m:ComboBox
@@ -185,72 +194,130 @@
             </DynamicPageHeader>
 
         </header>
-        <!-- mandatory="mandatory"  -->
-
-        <!-- ================================================= -->
-        <!-- CONTENT -->
-        <!-- ================================================= -->
-
         <content>
 
-            <m:VBox
-                width="100%">
+            <m:ScrollContainer
+                width="100%"
+                horizontal="true"
+                vertical="false">
 
-                <!-- ================================================= -->
-                <!-- QPR ITEMS TABLE -->
-                <!-- ================================================= -->
+                <m:Table id="QPRs" items="{QPRItems>/items}" mode="SingleSelectLeft" growing="true"
+                    growingScrollToLoad="true" inset="false">                    <!-- mode : SingleselectLeft/
+                MultiSelect-->
 
-                <smartTable:SmartTable
-                    id="qprTable"
-                    tableType="Table"
-                    entitySet="QPRs"
-                    header="QPR Line Items"
-                    smartFilterId="smartFilterBar"
-                    showRowCount="true"
-                    enableAutoColumnWidth="true"
-                    useTablePersonalisation="true"
-                    initiallyVisibleFields="invoiceNo"
-                    visible="true"
-                    enableAutoBinding="true">
+                    <m:headerToolbar>
+                        <m:Toolbar>
+                            <m:Title text="QPR Line Items " />
+
+                            <m:ToolbarSpacer />
+
+                            <m:Button text="Save All Changes" icon="sap-icon://save"
+                                press=".onSaveAll" />
+                        </m:Toolbar>
+                    </m:headerToolbar>
+
+                    <m:columns>
+
+                        <m:Column width="120px">
+                            <m:Text text="Model Family" />
+                        </m:Column>
+
+                        <m:Column width="150px">
+                            <m:Text text="Model Group" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Case Number" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Hu Number" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Part No" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Description" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Quantity" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Part Condition" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Packaging Condition" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Nature Of Defect" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Replacement Or Rework" />
+                        </m:Column>
+
+                        <m:Column width="120px">
+                            <m:Text text="Attachments" />
+                        </m:Column>
 
 
-                    <smartTable:layoutData>
+                    </m:columns>
 
-                        <m:FlexItemData
-                            growFactor="1"
-                            baseSize="0%" />
+                    <m:items>
 
-                    </smartTable:layoutData>
+                        <m:ColumnListItem>
 
-                </smartTable:SmartTable>
+                            <m:cells>
+
+                                <!-- Vehicle ID -->
+                                <m:Text text="{QPRItems>modelFamily}" />
+
+                                <!-- Vehicle Name -->
+                                <m:Text text="{QPRItems>modelGroup}" />
+
+                                <!-- State -->
+                                <m:Text text="{QPRItems>caseNumber}" />
+
+                                <m:Text text="{QPRItems>huNumber}" />
+
+                                <!-- Vehicle Name -->
+                                <m:Text text="{QPRItems>partNo}" />
+
+                                <!-- State -->
+                                <m:Text text="{QPRItems>description}" />
+
+                                <!-- Vehicle ID -->
+                                <m:Text text="{QPRItems>quantity}" />
+
+                                <!-- Vehicle Name -->
+                                <m:Text text="{QPRItems>partCondition}" />
+
+                                <!-- State -->
+                                <m:Text text="{QPRItems>packagingCondition}" />
+
+                                <m:Text text="{QPRItems>natureOfDefect}" />
+
+                                <!-- Vehicle Name -->
+                                <m:Text text="{QPRItems>replacementOrRework}" />
+
+                                <!-- State -->
+                                <m:Text text="{QPRItems>state}" />
 
 
-                <!-- ================================================= -->
-                <!-- BUTTONS -->
-                <!-- ================================================= -->
+                            </m:cells>
 
-                <m:HBox
-                    width="100%"
-                    justifyContent="End"
-                    class="sapUiMediumMarginTop sapUiMediumMarginEnd">
+                        </m:ColumnListItem>
 
-                    <m:Button
-                        id="saveButton"
-                        text="Save"
-                        type="Default"
-                        press=".onSave"
-                        class="sapUiSmallMarginEnd" />
+                    </m:items>
 
-                    <m:Button
-                        id="submitButton"
-                        text="Submit"
-                        type="Emphasized"
-                        press=".onSubmit" />
-
-                </m:HBox>
-
-            </m:VBox>
-
+                </m:Table>
+            </m:ScrollContainer>
         </content>
 
     </DynamicPage>
