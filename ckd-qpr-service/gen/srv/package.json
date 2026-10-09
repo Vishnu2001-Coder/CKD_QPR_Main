@@ -1,7 +1,6 @@
 {
   "name": "ckd-qpr-service",
   "version": "1.0.0",
-  "type": "module",
   "dependencies": {
     "@cap-js-community/odata-v2-adapter": "^1.16.1",
     "@cap-js/hana": "^3",
@@ -18,7 +17,10 @@
   "private": true,
   "cds": {
     "server": {
-      "index": true
+      "index": true,
+      "body_parser": {
+        "limit": "20mb"
+      }
     },
     "requires": {
       "[development]": {

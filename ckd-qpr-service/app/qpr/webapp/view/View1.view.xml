@@ -5,321 +5,589 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:sfb="sap.ui.comp.smartfilterbar"
     xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:unified="sap.ui.unified"
     controllerName="qpr.controller.View1"
     height="100%">
+    <m:VBox
+        fitContainer="true"
+        height="100%">
+        <ShellBar
+            id="qprShellBar"
+            class="qprShellBar"
+            homeIcon="img/Ladera_logo.jpg"
+            homeIconTooltip="SAP"
+            title="Create QPR – Quality Product Report"
+            showSearch="true"
+            showNotifications="true" />
+
+        <DynamicPage
+            id="dynamicPage"
+            fitContent="false"
+            showFooter="true"
+            preserveHeaderStateOnScroll="true">
 
 
-    <!-- ================================================= -->
-    <!-- CUSTOM NAVY HEADER (ShellBar) -->
-    <!-- ================================================= -->
-
-    <!-- <ShellBar
-        id="qprShellBar"
-        class="qprShellBar"
-        title="Create QPR – Quality Product Report"
-        homeIcon="sap-icon://sap-logo"
-        showSearch="true"
-        showNotifications="true"
-         /> -->
-
-    <ShellBar
-        id="qprShellBar"
-        class="qprShellBar"
-        homeIcon="img/sap_logo.png"
-        homeIconTooltip="SAP"
-        title="Create QPR – Quality Product Report"
-        showSearch="true"
-        showNotifications="true"
-    />
-    <DynamicPage
-        id="dynamicPage"
-        fitContent="true">
-
-        <!-- ================================================= -->
-        <!-- PAGE TITLE -->
-        <!-- ================================================= -->
-
-        <title>
-            <DynamicPageTitle>
-
-                <heading>
-                    <m:Title
-                        text="General Information"
-                        level="H2" />
-                </heading>
-
-            </DynamicPageTitle>
-        </title>
+            <layoutData>
+                <m:FlexItemData growFactor="1" />
+            </layoutData>
 
 
-        <!-- ================================================= -->
-        <!-- FILTER BAR -->
-        <!-- ================================================= -->
+            <title>
+                <DynamicPageTitle>
+                    <heading>
+                        <m:Title
+                            text="Request Generator Application"
+                            level="H2" />
+                    </heading>
+                </DynamicPageTitle>
+            </title>
 
-        <header>
 
-            <DynamicPageHeader>
+            <header>
 
-                <sfb:SmartFilterBar
-                    id="smartFilterBar"
-                    entitySet="QPRs"
-                    persistencyKey="QPRFilterBar"
-                    showGoOnFB="true"
-                    useToolbar="false"
-                     search=".onGo">                                          <!--Manually set the event -->
+                <DynamicPageHeader>
 
-                    <sfb:controlConfiguration>
+                    <sfb:SmartFilterBar
+                        id="smartFilterBar"
+                        entitySet="QPRs"
+                        persistencyKey="QPRFilterBar"
+                        showFilterConfiguration="false"
+                        showGoOnFB="true"
+                        useToolbar="false"
+                        search=".onGo">                                          <!--Manually
+                    set the event -->
 
-                        <!-- Invoice Number -->
-                        <sfb:ControlConfiguration
-                            key="invoiceNo"
-                            label="Invoice Number"
-                            visibleInAdvancedArea="true"
-                            mandatory="mandatory">
-                            <sfb:customControl>                                    <!-- combo box for value List-->
-                                <m:ComboBox
-                                    id="invoiceCombo"
-                                    items="{ckd>/Invoices}"
-                                    selectedKey="{invoiceNo}"
-                                    selectionChange=".onInvoiceFilterChange">
-                                    <core:Item
-                                        key="{ckd>ID}"
-                                        text="{ckd>invoiceNo}" />                     <!-- key important like binding
+                        <sfb:controlConfiguration>
+
+                            <!-- Invoice Number -->
+                            <sfb:ControlConfiguration
+                                key="invoiceNo"
+                                label="Invoice Number"
+                                visibleInAdvancedArea="true"
+                                mandatory="mandatory">
+                                <sfb:customControl>                                    <!-- combo box for value List-->
+                                    <m:ComboBox
+                                        id="invoiceCombo"
+                                        items="{ckd>/Invoices}"
+                                        selectedKey="{invoiceNo}"
+                                        selectionChange=".onInvoiceFilterChange">
+                                        <core:Item
+                                            key="{ckd>ID}"
+                                            text="{ckd>invoiceNo}" />                     <!-- key important like binding
                                                                                       context --> <!-- text which is show the Ui
                                                                                      ,after select user , we getting a value based key -->
-                                </m:ComboBox>
-                            </sfb:customControl>
-                        </sfb:ControlConfiguration>
+                                    </m:ComboBox>
+                                </sfb:customControl>
+                            </sfb:ControlConfiguration>
 
-                        <sfb:ControlConfiguration
-                            key="salesOrder"
-                            label="Sales Order"
-                            visibleInAdvancedArea="true"
-                            mandatory="mandatory">
-                            <sfb:customControl>
-                                <m:Input value="{FilterData>/salesOrderNo}" editable="false" />    <!-- input to
+                            <sfb:ControlConfiguration
+                                key="salesOrder"
+                                label="Sales Order"
+                                visibleInAdvancedArea="true"
+                                
+                            >
+                                <sfb:customControl>
+                                    <m:Input value="{FilterData>/salesOrderNo}" editable="false" />    <!--
+                                input to
                                 get the user input-->
-                            </sfb:customControl>
-                        </sfb:ControlConfiguration>
+                                </sfb:customControl>
+                            </sfb:ControlConfiguration>
 
-                        <sfb:ControlConfiguration
-                            key="dateOfContainerReceipt"
-                            label="Date of Container Receipt"
-                            visibleInAdvancedArea="true"
-                           >
-                            <sfb:customControl>
-                                <m:DatePicker value="{FilterData>/recieptDate}" editable="true" />    <!--
+                            <sfb:ControlConfiguration
+                                key="dateOfContainerReceipt"
+                                label="Date of Container Receipt"
+                                visibleInAdvancedArea="true"
+                                 mandatory="mandatory"
+                            >
+                                <sfb:customControl>
+                                    <m:DatePicker value="{FilterData>/recieptDate}" editable="true" />    <!--
                                 input to get the user input-->
-                            </sfb:customControl>
-                        </sfb:ControlConfiguration>
+                                </sfb:customControl>
+                            </sfb:ControlConfiguration>
 
-                        <sfb:ControlConfiguration
-                            key="unpackingDate"
-                            label="Unpacking Date"
-                            visibleInAdvancedArea="true"
-                           >
-                            <sfb:customControl>
-                                <m:DatePicker value="{FilterData>/unpackedDate}" editable="true" />    <!--
+                            <sfb:ControlConfiguration
+                                key="unpackingDate"
+                                label="Unpacking Date"
+                                visibleInAdvancedArea="true"
+                                 mandatory="mandatory"
+                            >
+                                <sfb:customControl>
+                                    <m:DatePicker value="{FilterData>/unpackedDate}" editable="true" />    <!--
                                 input to get the user input-->
-                            </sfb:customControl>
-                        </sfb:ControlConfiguration>
+                                </sfb:customControl>
+                            </sfb:ControlConfiguration>
 
 
-                        <sfb:ControlConfiguration
-                            key="assembler"
-                            label="Assembler Name"
-                            visibleInAdvancedArea="true"
-                           >
-                            <sfb:customControl>
-                                <m:Input value="{FilterData>/assemblerName}" editable="false" />    <!--
+                            <sfb:ControlConfiguration
+                                key="assembler"
+                                label="Assembler Name"
+                                visibleInAdvancedArea="true"
+                            >
+                                <sfb:customControl>
+                                    <m:Input value="{FilterData>/assemblerName}" editable="false" />    <!--
                                 input to get the user input-->
-                            </sfb:customControl>
-                        </sfb:ControlConfiguration>
+                                </sfb:customControl>
+                            </sfb:ControlConfiguration>
 
 
-                        <sfb:ControlConfiguration
-                            key="country"
-                            label="Country"
-                            visibleInAdvancedArea="true">
-                            <sfb:customControl>
-                                <m:Input value="{FilterData>/country}" editable="false" />    <!--
+                            <sfb:ControlConfiguration
+                                key="country"
+                                label="Country"
+                                visibleInAdvancedArea="true"
+                            >
+                                <sfb:customControl>
+                                    <m:Input value="{FilterData>/country}" editable="false" />    <!--
                                 input to get the user input-->
-                            </sfb:customControl>
-                        </sfb:ControlConfiguration>
+                                </sfb:customControl>
+                            </sfb:ControlConfiguration>
 
 
-                        <sfb:ControlConfiguration
-                            key="department"
-                            label="Department"
-                            visibleInAdvancedArea="true"
-                           >
-                            <sfb:customControl>
+                            <sfb:ControlConfiguration
+                                key="department"
+                                label="Department"
+                                visibleInAdvancedArea="true"
+                                 mandatory="mandatory"
+                            >
+                                <sfb:customControl>
 
-                                <m:ComboBox
-                                    id="departmentCombo"
-                                    items="{ckd>/Department}"
-                                    selectedKey="{departmentName}">
+                                    <m:ComboBox
+                                        id="departmentCombo"
+                                        items="{ckd>/Department}"  
+                                        selectedKey="{departmentName}"> <!-- service>/entity   | model>/properties-->
 
-                                    <core:Item
-                                        key="{ckd>ID}"
-                                        text="{ckd>departmentName}" />
-                                </m:ComboBox>
-                            </sfb:customControl>
-                        </sfb:ControlConfiguration>
+                                        <core:Item
+                                            key="{ckd>ID}"
+                                            text="{ckd>departmentType}" />
+                                    </m:ComboBox>
+                                </sfb:customControl>
+                            </sfb:ControlConfiguration>
 
-                        <sfb:ControlConfiguration
-                            key="plant"
-                            label="Plant"
-                            visibleInAdvancedArea="true"
-                           >
-                            <sfb:customControl>
+                            <sfb:ControlConfiguration
+                                key="plant"
+                                label="Plant"
+                                visibleInAdvancedArea="true"
+                                 mandatory="mandatory"
+                            >
+                                <sfb:customControl>
 
-                                <m:ComboBox
-                                    id="plantCombo"
-                                    items="{ckd>/Plants}"
-                                    selectedKey="{plantName}">
+                                    <m:ComboBox
+                                        id="plantCombo"
+                                        items="{ckd>/Plants}"
+                                        selectedKey="{plantName}">
 
-                                    <core:Item
-                                        key="{ckd>ID}"
-                                        text="{ckd>plantName}" />
+                                        <core:Item
+                                            key="{ckd>ID}"
+                                            text="{ckd>plantName}" />
 
-                                </m:ComboBox>
-                            </sfb:customControl>
-                        </sfb:ControlConfiguration>
+                                    </m:ComboBox>
+                                </sfb:customControl>
+                            </sfb:ControlConfiguration>
 
-                    </sfb:controlConfiguration>
+                        </sfb:controlConfiguration>
 
-                </sfb:SmartFilterBar>
+                    </sfb:SmartFilterBar>
 
-            </DynamicPageHeader>
+                </DynamicPageHeader>
 
-        </header>
-        <content>
+            </header>
+            <content>
+                <m:VBox width="100%" height="100%">
 
-            <m:ScrollContainer
-                width="100%"
-                horizontal="true"
-                vertical="false">
+                    <!-- FIXED TOOLBAR -->
+                    <m:Toolbar id="qprLineItemToolbar">
+                        <m:Title text="QPR Line Items" />
+                        <m:ToolbarSpacer />
 
-                <m:Table id="QPRs" items="{QPRItems>/items}" mode="SingleSelectLeft" growing="true"
-                    growingScrollToLoad="true" inset="false">                    <!-- mode : SingleselectLeft/
-                MultiSelect-->
+                        <m:Button
+                            text="Add Row"
+                            icon="sap-icon://add"
+                            press=".onAddRow" />
 
-                    <m:headerToolbar>
-                        <m:Toolbar>
-                            <m:Title text="QPR Line Items " />
+                        <m:Button
+                            text="Delete Row"
+                            icon="sap-icon://delete"
+                            press=".onDeleteRow" />   <!--type="Reject" -->
 
-                            <m:ToolbarSpacer />
-
-                            <m:Button text="Save All Changes" icon="sap-icon://save"
-                                press=".onSaveAll" />
-                        </m:Toolbar>
-                    </m:headerToolbar>
-
-                    <m:columns>
-
-                        <m:Column width="120px">
-                            <m:Text text="Model Family" />
-                        </m:Column>
-
-                        <m:Column width="150px">
-                            <m:Text text="Model Group" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Case Number" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Hu Number" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Part No" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Description" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Quantity" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Part Condition" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Packaging Condition" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Nature Of Defect" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Replacement Or Rework" />
-                        </m:Column>
-
-                        <m:Column width="120px">
-                            <m:Text text="Attachments" />
-                        </m:Column>
+                        <!-- <m:Button
+                            text="Save All Changes"
+                            icon="sap-icon://save"
+                            press=".onSaveAll" /> -->
+                    </m:Toolbar>
+                    <m:ScrollContainer
+                        id="qprScrollContainer"
+                        width="100%"
+                        height="100%"
+                        horizontal="true"
+                        vertical="true">
+                        <m:Table
+                            id="QPRs"
+                            items="{QPRItems>/items}"
+                            mode="MultiSelect"
+                            growing="false"
+                            inset="false"
+                            sticky="HeaderToolbar">       <!--"SingleSelectLeft"-->
 
 
-                    </m:columns>
+                            <m:columns>
 
-                    <m:items>
+                                <m:Column width="170px">
+                                    <m:Text text="Model Family" />
+                                </m:Column>
 
-                        <m:ColumnListItem>
+                                <m:Column width="150px">
+                                    <m:Text text="Model Group" />
+                                </m:Column>
 
-                            <m:cells>
+                                <m:Column width="140px">
+                                    <m:Text text="Case Number" />
+                                </m:Column>
 
-                                <!-- Vehicle ID -->
-                                <m:Text text="{QPRItems>modelFamily}" />
+                                <m:Column width="150px">
+                                    <m:Text text="Hu Number" />
+                                </m:Column>
 
-                                <!-- Vehicle Name -->
-                                <m:Text text="{QPRItems>modelGroup}" />
+                                <m:Column width="150px">
+                                    <m:Text text="Part No" />
+                                </m:Column>
 
-                                <!-- State -->
-                                <m:Text text="{QPRItems>caseNumber}" />
+                                <m:Column width="270px" hAlign="Center">
+                                    <m:Text text="Description"
+                                    />
+                                </m:Column>
 
-                                <m:Text text="{QPRItems>huNumber}" />
+                                <m:Column width="140px">
+                                    <m:Text text="Quantity" />
+                                </m:Column>
 
-                                <!-- Vehicle Name -->
-                                <m:Text text="{QPRItems>partNo}" />
+                                <m:Column width="140px">
+                                    <m:Text text="Part Condition" />
+                                </m:Column>
 
-                                <!-- State -->
-                                <m:Text text="{QPRItems>description}" />
+                                <m:Column width="140px">
+                                    <m:Text text="Packaging Condition" />
+                                </m:Column>
 
-                                <!-- Vehicle ID -->
-                                <m:Text text="{QPRItems>quantity}" />
+                                <m:Column width="140px">
+                                    <m:Text text="Nature Of Defect" />
+                                </m:Column>
 
-                                <!-- Vehicle Name -->
-                                <m:Text text="{QPRItems>partCondition}" />
+                                <m:Column width="160px">
+                                    <m:Text text="Replacement Or Rework" />
+                                </m:Column>
 
-                                <!-- State -->
-                                <m:Text text="{QPRItems>packagingCondition}" />
+                                <m:Column width="160px">
+                                    <m:Text text="UOM" />       <!--Unit
+                            of Measure.-->
+                                </m:Column>
 
-                                <m:Text text="{QPRItems>natureOfDefect}" />
-
-                                <!-- Vehicle Name -->
-                                <m:Text text="{QPRItems>replacementOrRework}" />
-
-                                <!-- State -->
-                                <m:Text text="{QPRItems>state}" />
+                                <m:Column width="200px">
+                                    <m:Text text="Upload Image" />
+                                </m:Column>
 
 
-                            </m:cells>
+                            </m:columns>
 
-                        </m:ColumnListItem>
+                            <m:items>
 
-                    </m:items>
+                                <m:ColumnListItem>
+                                    <m:cells>
 
-                </m:Table>
-            </m:ScrollContainer>
-        </content>
+                                        <m:ComboBox
+                                            width="100%"
+                                            placeholder="Select Model Family"
+                                            selectionChange="modelFamDropDown"
+                                            selectedKey="{QPRItems>modelFamily}"
+                                            items="{QPRItems>/modelFamilies}">        <!--Items
+                                            this is for showing puspose
+                                                                             is for where we get data , selected key is use for get the data
+                                                                             note : whatever we give in key that only we get   -->
 
-    </DynamicPage>
+                                            <core:Item
+                                                key="{QPRItems>Id}"
+                                                text="{QPRItems>FamilyName}" />           <!--this
+                                            for getting purpose
+                                    text is used for daisplay the particular data -->
+
+                                        </m:ComboBox>
+
+                                        <m:Input
+                                            value="{QPRItems>modelGroup}"
+                                            width="100%"
+                                            editable="false" />
+
+                                        <m:Input
+                                            placeholder="EX-CASE001"
+                                            value="{QPRItems>caseNumber}"
+                                            width="100%"
+                                            editable="true" />
+
+                                        <!-- <m:Input
+                                            id="huno"
+                                            placeholder="Enter HU Num"
+                                            value="{QPRItems>/items/0/huNumber}"
+                                            width="100%"
+                                            editable="true"
+                                            valueState="None"
+                                            valueStateText="Invalid HU-Number"
+                                            change="huno_Press" /> -->
+
+                                        <m:ComboBox
+                                            id="huno"
+                                            width="100%"
+                                            placeholder="Select HU Number"
+                                            selectedKey="{QPRItems>huNumber}"
+                                            items="{QPRItems>huNumbers}"
+                                            selectionChange="huno_Press">        <!-- see the rule , this is
+                                            not a root property | "{QPRItems>huNumbers}"-->
+
+                                            <core:Item
+                                                key="{QPRItems>huNumber}"
+                                                text="{QPRItems>huNumber}" />
+
+                                        </m:ComboBox>
+
+                                        <!-- <m:Input
+                                            
+                                            placeholder="Enter Part Num"
+                                            value="{QPRItems>/items/0/caseNumber}"
+                                            width="100%"
+                                            editable="true"
+                                            valueState="None"
+                                            valueStateText="Invalid HU-Number"
+                                            change="partno_Press" /> -->
+
+                                        <m:ComboBox
+                                            id="part"
+                                            width="100%"
+                                            valueState="None"
+                                            valueStateText=""
+                                            placeholder="Select Part Number"
+                                            selectedKey="{QPRItems>huNumber}"
+                                            items="{QPRItems>partNumbers}"
+                                            selectionChange="partno_Press">        <!-- see the rule , this
+                                            is not a root property | "{QPRItems>huNumbers}"-->
+
+                                            <core:Item
+                                                key="{QPRItems>partNo}"
+                                                text="{QPRItems>partNo}" />
+
+                                        </m:ComboBox>
+
+                                        <m:Input
+                                            value="{QPRItems>description}"
+                                            width="100%"
+                                            editable="false" />                    <!--using
+                                        a bindingContent, for array of objects-->
+
+
+                                        <m:Input
+                                            value="{QPRItems>quantity}"
+                                            width="100%"
+                                            editable="true"
+                                            valueState="None"
+                                            valueStateText="Invalid Quantity"
+                                            change="quantitySelect" />
+
+                                        <!-- <m:ComboBox
+                                            width="100%"
+                                            valueState="None"
+                                            valueStateText=""
+                                            selectionChange="quantitySelect"
+                                            selectedKey="{QPRItems>quantity}">
+
+                                            <core:Item key="1" text="1" />
+                                            <core:Item key="2" text="2" />
+                                            <core:Item key="3" text="3" />
+                                            <core:Item key="4" text="4" />
+                                            <core:Item key="5" text="5" />
+                                            <core:Item key="6" text="6" />
+                                            <core:Item key="7" text="7" />
+                                            <core:Item key="8" text="8" />
+                                            <core:Item key="9" text="9" />
+                                            <core:Item key="10" text="10" />
+
+                                        </m:ComboBox> -->
+
+                                        <!-- Part Condition -->
+                                        <m:ComboBox
+                                            width="100%"
+                                            selectionChange="selectPartCondition"
+                                            selectedKey="{QPRItems>partCondition}">
+
+                                            <core:Item
+                                                key="Damaged"
+                                                text="Damaged" />
+
+                                            <core:Item
+                                                key="Missing"
+                                                text="Missing" />
+
+                                        </m:ComboBox>
+
+
+                                        <!-- Packaging Condition -->
+                                        <m:ComboBox
+                                            width="100%"
+                                            selectionChange="selectPackageCondition"
+                                            selectedKey="{QPRItems>packagingCondition}">
+
+                                            <core:Item
+                                                key="Good"
+                                                text="Good" />
+
+                                            <core:Item
+                                                key="Damaged"
+                                                text="Damaged" />
+
+                                        </m:ComboBox>
+
+
+                                        <!-- Nature of Defect -->
+                                        <m:ComboBox
+                                            width="100%"
+                                            selectionChange="selectNatureOfDefect"
+                                            selectedKey="{QPRItems>natureOfDefect}">
+
+                                            <core:Item
+                                                key="Broken"
+                                                text="Broken" />
+
+                                            <core:Item
+                                                key="Cracked"
+                                                text="Cracked" />
+
+                                            <core:Item
+                                                key="Bent"
+                                                text="Bent" />
+
+                                            <core:Item
+                                                key="Scratched"
+                                                text="Scratched" />
+
+                                            <core:Item
+                                                key="Rusted"
+                                                text="Rusted / Corroded" />
+
+                                            <core:Item
+                                                key="Missing"
+                                                text="Missing" />
+
+                                            <core:Item
+                                                key="WrongPart"
+                                                text="Wrong Part" />
+
+                                            <core:Item
+                                                key="Other"
+                                                text="Other" />
+
+                                        </m:ComboBox>
+
+                                        <!-- Replacement / Rework -->
+                                        <m:ComboBox
+                                            width="100%"
+                                            selectionChange="selectReplacementOrRework"
+                                            selectedKey="{QPRItems>replacementOrRework}">
+
+                                            <core:Item
+                                                key="Replacement"
+                                                text="Replacement" />
+
+                                            <core:Item
+                                                key="Rework"
+                                                text="Rework" />
+
+                                        </m:ComboBox>
+
+                                        <m:ComboBox
+                                            width="100%"
+                                            selectionChange="selectUOM"
+                                            selectedKey="{QPRItems>uom}">
+
+                                            <core:Item
+                                                key="EA"
+                                                text="EA - Each" />
+
+                                            <core:Item
+                                                key="SET"
+                                                text="SET - Set" />
+
+                                            <core:Item
+                                                key="L"
+                                                text="L - Liter" />
+
+                                            <core:Item
+                                                key="M"
+                                                text="M - Meter" />
+
+                                            <core:Item
+                                                key="KG"
+                                                text="KG - Kilogram" />
+
+                                        </m:ComboBox>
+
+                                        <!-- 
+                                        <unified:FileUploader
+                                            width="100%"
+                                            fileType="jpg,jpeg,png,webp"
+                                            multiple="true"
+                                            change=".onImageUpload" />                               <mime  type is a file
+                                        Extension -->
+                                        <m:HBox>
+
+                                            <unified:FileUploader
+                                                id="imageUploader"
+                                                width="100%"
+                                                fileType="jpg,jpeg,png,webp"
+                                                multiple="true"
+                                                change=".onImageUpload" />
+
+                                            <m:Button
+                                                icon="sap-icon://show"
+                                                tooltip="Preview"
+                                                press=".onPreviewImages" />
+
+                                        </m:HBox>
+                                        <!-- 
+                                        <unified:FileUploader
+                                            id="imageUploader"
+                                            width="100%"
+                                            multiple="true"
+                                            fileType="jpg,jpeg,png,webp"
+                                            change=".onImageUpload" /> -->
+
+
+                                    </m:cells>
+
+                                </m:ColumnListItem>
+
+                            </m:items>
+
+                        </m:Table>
+                    </m:ScrollContainer>
+                </m:VBox>
+            </content>
+
+            <footer>
+                <m:OverflowToolbar>
+
+                    <m:ToolbarSpacer />
+
+                    <m:Button
+                        text="Save"
+                        icon="sap-icon://save"
+                        type="Default"
+                        press=".onSave" />
+
+                    <m:Button
+                        text="Submit"
+                        icon="sap-icon://accept"
+                        type="Emphasized"
+                        press=".onSubmit" />
+
+                </m:OverflowToolbar>
+            </footer>
+
+        </DynamicPage>
+    </m:VBox>
 
 </mvc:View>

@@ -21,6 +21,9 @@ server:
           - path: /odata/v2/ckd
             url: https://69ce3fbftrial-dev-ckd-qpr-service-srv.cfapps.us10-003.hana.ondemand.com
             destination: CKQ_QPR
+          - path: /odata/v4/qpr/
+            url: https://69ce3fbftrial-dev-ckd-qpr-service-srv.cfapps.us10-003.hana.ondemand.com
+            destination: CKQ_QPR
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -56,6 +59,10 @@ server:
           - urlPath: /odata/v2/ckd
             metadataPath: ./webapp/localService/ckd/metadata.xml
             mockdataPath: ./webapp/localService/ckd/data
+            generateMockData: true
+          - urlPath: /odata/v4/qpr
+            metadataPath: ./webapp/localService/qpr/metadata.xml
+            mockdataPath: ./webapp/localService/qpr/data
             generateMockData: true
         annotations: []
 builder:

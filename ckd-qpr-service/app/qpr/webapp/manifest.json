@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-          "uri": "/odata/v2/qprrequest/",
+        "uri": "/odata/v2/qprrequest/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -26,14 +26,22 @@
         }
       },
       "ckd": {
-         "uri": "/odata/v2/ckd/",
+        "uri": "/odata/v2/ckd/",
         "type": "OData",
         "settings": {
           "annotations": [],
           "localUri": "localService/ckd/metadata.xml",
           "odataVersion": "2.0",
           "operationMode": "Server"
-      
+        }
+      },
+      "qpr": {
+        "uri": "/odata/v4/qpr/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/qpr/metadata.xml",
+          "odataVersion": "4.0"
         }
       }
     },
@@ -88,7 +96,7 @@
         }
       },
       "": {
-         "dataSource": "mainService",
+        "dataSource": "mainService",
         "preload": true,
         "settings": {
           "operationMode": "Server",
@@ -97,10 +105,17 @@
         }
       },
       "ckd": {
-         "dataSource": "ckd",
+        "dataSource": "ckd",
+        "preload": true,
+        "settings": {}
+      },
+      "qpr": {
+        "dataSource": "qpr",
         "preload": true,
         "settings": {
-        
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
         }
       }
     },

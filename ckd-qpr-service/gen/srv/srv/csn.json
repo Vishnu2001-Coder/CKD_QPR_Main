@@ -1308,59 +1308,25 @@
           ]
         },
         "modelFamily": {
-          "type": "cds.Association",
-          "target": "ckd_qpr.db.ModelFamilies",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
+          "type": "cds.String"
         },
         "modelGroup": {
-          "type": "cds.Association",
-          "target": "ckd_qpr.db.ModelGroups",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
+          "type": "cds.String"
         },
         "hu": {
-          "type": "cds.Association",
-          "target": "ckd_qpr.db.HUContainers",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
+          "type": "cds.String"
         },
         "part": {
-          "type": "cds.Association",
-          "target": "ckd_qpr.db.Parts",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
         },
         "caseNumber": {
           "type": "cds.String",
           "length": 50
         },
-        "invoiceQuantity": {
-          "type": "cds.Decimal",
-          "precision": 13,
-          "scale": 3
-        },
-        "claimQuantity": {
+        "Quantity": {
           "type": "cds.Decimal",
           "precision": 13,
           "scale": 3
@@ -1384,10 +1350,6 @@
         "replacementOrRework": {
           "type": "cds.String",
           "length": 30
-        },
-        "remarks": {
-          "type": "cds.String",
-          "length": 500
         },
         "attachments": {
           "type": "cds.Composition",
@@ -2879,59 +2841,25 @@
           ]
         },
         "modelFamily": {
-          "type": "cds.Association",
-          "target": "QPRRequest.ModelFamilies",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
+          "type": "cds.String"
         },
         "modelGroup": {
-          "type": "cds.Association",
-          "target": "ckd_qpr.db.ModelGroups",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
+          "type": "cds.String"
         },
         "hu": {
-          "type": "cds.Association",
-          "target": "ckd_qpr.db.HUContainers",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
+          "type": "cds.String"
         },
         "part": {
-          "type": "cds.Association",
-          "target": "QPRRequest.Parts",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
+          "type": "cds.String"
+        },
+        "description": {
+          "type": "cds.String"
         },
         "caseNumber": {
           "type": "cds.String",
           "length": 50
         },
-        "invoiceQuantity": {
-          "type": "cds.Decimal",
-          "precision": 13,
-          "scale": 3
-        },
-        "claimQuantity": {
+        "Quantity": {
           "type": "cds.Decimal",
           "precision": 13,
           "scale": 3
@@ -2955,10 +2883,6 @@
         "replacementOrRework": {
           "type": "cds.String",
           "length": 30
-        },
-        "remarks": {
-          "type": "cds.String",
-          "length": 500
         },
         "attachments": {
           "type": "cds.Composition",
@@ -3810,224 +3734,6 @@
               }
             ]
           }
-        }
-      }
-    },
-    "QPRRequest.ModelFamilies": {
-      "kind": "entity",
-      "@cds.autoexposed": true,
-      "projection": {
-        "from": {
-          "ref": [
-            "ckd_qpr.db.ModelFamilies"
-          ]
-        }
-      },
-      "elements": {
-        "ID": {
-          "key": true,
-          "type": "cds.UUID"
-        },
-        "createdAt": {
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@UI.HiddenFilter": true,
-          "@UI.ExcludeFromNavigationContext": true,
-          "@Core.Immutable": true,
-          "@title": "{i18n>CreatedAt}",
-          "@readonly": true,
-          "type": "cds.Timestamp"
-        },
-        "createdBy": {
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@UI.HiddenFilter": true,
-          "@UI.ExcludeFromNavigationContext": true,
-          "@Core.Immutable": true,
-          "@title": "{i18n>CreatedBy}",
-          "@readonly": true,
-          "@description": "{i18n>UserID.Description}",
-          "type": "User",
-          "length": 255
-        },
-        "modifiedAt": {
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@cds.on.update": {
-            "=": "$now"
-          },
-          "@UI.HiddenFilter": true,
-          "@UI.ExcludeFromNavigationContext": true,
-          "@title": "{i18n>ChangedAt}",
-          "@readonly": true,
-          "type": "cds.Timestamp"
-        },
-        "modifiedBy": {
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@cds.on.update": {
-            "=": "$user"
-          },
-          "@UI.HiddenFilter": true,
-          "@UI.ExcludeFromNavigationContext": true,
-          "@title": "{i18n>ChangedBy}",
-          "@readonly": true,
-          "@description": "{i18n>UserID.Description}",
-          "type": "User",
-          "length": 255
-        },
-        "familyName": {
-          "type": "cds.String",
-          "length": 100,
-          "notNull": true
-        },
-        "description": {
-          "type": "cds.String",
-          "length": 255
-        },
-        "modelGroups": {
-          "type": "cds.Association",
-          "cardinality": {
-            "max": 1
-          },
-          "target": "ckd_qpr.db.ModelGroups",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ]
-        },
-        "HUContainers": {
-          "type": "cds.Association",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "ckd_qpr.db.HUContainers",
-          "on": [
-            {
-              "ref": [
-                "HUContainers",
-                "ModelFamilies"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$self"
-              ]
-            }
-          ],
-          "$backlink": {
-            "keys": [
-              {
-                "ref": [
-                  "ID"
-                ]
-              }
-            ]
-          }
-        }
-      }
-    },
-    "QPRRequest.Parts": {
-      "kind": "entity",
-      "@cds.autoexposed": true,
-      "projection": {
-        "from": {
-          "ref": [
-            "ckd_qpr.db.Parts"
-          ]
-        }
-      },
-      "elements": {
-        "ID": {
-          "key": true,
-          "type": "cds.UUID"
-        },
-        "createdAt": {
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@UI.HiddenFilter": true,
-          "@UI.ExcludeFromNavigationContext": true,
-          "@Core.Immutable": true,
-          "@title": "{i18n>CreatedAt}",
-          "@readonly": true,
-          "type": "cds.Timestamp"
-        },
-        "createdBy": {
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@UI.HiddenFilter": true,
-          "@UI.ExcludeFromNavigationContext": true,
-          "@Core.Immutable": true,
-          "@title": "{i18n>CreatedBy}",
-          "@readonly": true,
-          "@description": "{i18n>UserID.Description}",
-          "type": "User",
-          "length": 255
-        },
-        "modifiedAt": {
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@cds.on.update": {
-            "=": "$now"
-          },
-          "@UI.HiddenFilter": true,
-          "@UI.ExcludeFromNavigationContext": true,
-          "@title": "{i18n>ChangedAt}",
-          "@readonly": true,
-          "type": "cds.Timestamp"
-        },
-        "modifiedBy": {
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@cds.on.update": {
-            "=": "$user"
-          },
-          "@UI.HiddenFilter": true,
-          "@UI.ExcludeFromNavigationContext": true,
-          "@title": "{i18n>ChangedBy}",
-          "@readonly": true,
-          "@description": "{i18n>UserID.Description}",
-          "type": "User",
-          "length": 255
-        },
-        "partNumber": {
-          "type": "cds.String",
-          "length": 40,
-          "notNull": true
-        },
-        "partName": {
-          "type": "cds.String",
-          "length": 150
-        },
-        "quantity": {
-          "type": "cds.Integer",
-          "default": {
-            "val": 1
-          }
-        },
-        "huContainer": {
-          "type": "cds.Association",
-          "target": "ckd_qpr.db.HUContainers",
-          "keys": [
-            {
-              "ref": [
-                "ID"
-              ]
-            }
-          ],
-          "notNull": true
         }
       }
     },

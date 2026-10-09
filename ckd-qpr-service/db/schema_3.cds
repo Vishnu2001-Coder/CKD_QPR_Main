@@ -1,7 +1,7 @@
 namespace QPR.db;
 
-using { ckd_qpr.db.ModelFamilies as ModelFamilies ,ckd_qpr.db.ModelGroups as ModelGroups,ckd_qpr.db.HUContainers as HandlingUnits,ckd_qpr.db.Parts as Parts } from './schema_1';
-using { ckd_qpr.db1.Invoices as Invoices,ckd_qpr.db1.SalesOrders as SalesOrders ,ckd_qpr.db1.Employees as Employees , ckd_qpr.db1.Department as Departments } from './schema_2';
+// using { ckd_qpr.db.ModelFamilies as ModelFamilies ,ckd_qpr.db.ModelGroups as ModelGroups,ckd_qpr.db.HUContainers as HandlingUnits,ckd_qpr.db.Parts as Parts } from './schema_1';
+// using { ckd_qpr.db1.Invoices as Invoices,ckd_qpr.db1.SalesOrders as SalesOrders ,ckd_qpr.db1.Employees as Employees , ckd_qpr.db1.Department as Departments } from './schema_2';
 
 
 entity QPRs {
@@ -9,18 +9,18 @@ entity QPRs {
 
         qprNumber              : String(30);
 
-        invoice                :  String(100);                 //Association to Invoices;
+        invoice                : String(100); //Association to Invoices;
 
-        salesOrder             : String(100);                  //Association to SalesOrders;
+        salesOrder             : String(100); //Association to SalesOrders;
 
-        dateOfContainerReceipt : Date;
+        dateOfContainerReceipt : Date;        //"10/7/26" doesnt accept Its a DataPicker , it accept this format "2026-10-05"
         unpackingDate          : Date;
 
-        assembler              : String(100);                    //Association to Employees;
-        
+        assembler              : String(100); //Association to Employees;
+
         country                : String(100);
 
-        department             :  String(100);                        //Association to Departments;
+        department             : String(100); //Association to Departments;
         plant                  : String(50);
 
         status                 : String(30);
@@ -34,25 +34,29 @@ entity QPRItems {
 
         qpr                 : Association to QPRs;
 
-        modelFamily         : Association to ModelFamilies;
-        modelGroup          : Association to ModelGroups;
+        modelFamily         : String; // Association to ModelFamilies;
 
-        hu                  : Association to HandlingUnits;
-        part                : Association to Parts;
+        modelGroup          : String; //  Association to ModelGroups;
+
+        hu                  : String; //Association to HandlingUnits;
+
+        part                : String; //Association to Parts;
+
+        description         : String;
 
         caseNumber          : String(50);
 
-        invoiceQuantity     : Decimal(13, 3);
-        claimQuantity       : Decimal(13, 3);
+        Quantity     : Decimal(13, 3);
 
         uom                 : String(10);
 
         partCondition       : String(50);
-        packagingCondition  : String(50);
-        natureOfDefect      : String(100);
-        replacementOrRework : String(30);
 
-        remarks             : String(500);
+        packagingCondition  : String(50);
+
+        natureOfDefect      : String(100);
+
+        replacementOrRework : String(30);
 
         attachments         : Composition of many QPRAttachments
                                   on attachments.qprItem = $self;

@@ -1,21 +1,3 @@
-/* .qprShellBar {
-    background-color: #1B3A5C !important;
-    border-bottom: none !important;
-}
-
-.qprShellBar * {
-    opacity: 1 !important;
-}
-
-.qprShellBar .sapFShellBarTitle,
-.qprShellBar .sapFShellBarTitleText,
-.qprShellBar .sapMTitle {
-    color: #FFFFFF !important;
-    font-family: "72", Arial, sans-serif !important;
-    font-size: 1.125rem !important;
-    font-weight: 600 !important;
-} */
-
 .qprShellBar {
     background-color: #1B3A5C !important;
     border-bottom: none !important;

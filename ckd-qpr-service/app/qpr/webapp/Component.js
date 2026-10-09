@@ -20,9 +20,9 @@ sap.ui.define([
             var QprModel = {
                 items: [
                     {
-                        modelFamily: "",
-                        modelGroup: "",
-                        caseNumber: "",
+                        modelFamily: "",     //change
+                        modelGroup: "",     // model
+                        caseNumber: "",     //
                         huNumber: "",
                         partNo: "",
                         description: "",
@@ -31,12 +31,15 @@ sap.ui.define([
                         packagingCondition: "",
                         natureOfDefect: "",
                         replacementOrRework: "",
-                        attachments: []
+                        uom: "",
+                        attachments: [],
+                        
+                        huNumbers: [],
+                        partNumbers: []
                     }
                 ],
-                modelFamilies: [],           //for DropDown
+                modelFamilies: [],           //for DropDown -> {id : "", familyNAme :""}
 
-                modelGroups: []
             }
 
             var model = new JSONModel(QprModel);

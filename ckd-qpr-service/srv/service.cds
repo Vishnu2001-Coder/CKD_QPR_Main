@@ -6,7 +6,7 @@ using {QPR.db as db3  } from '../db/schema_3';
 //CKDQPRMasterDataServices
 
 
-service QPRService {
+service QPRService {                                         ///Core
     entity ModelGroups   as projection on db.ModelGroups;
     entity ModelFamilies as projection on db.ModelFamilies;
     entity HUContainers  as projection on db.HUContainers;
@@ -15,7 +15,7 @@ service QPRService {
 
 
 
-service CKDService {
+service CKDService {                                                       //
     entity Plants          as projection on db1.Plants;
     entity Department      as projection on db1.Department;
     entity Employees       as projection on db1.Employees;
