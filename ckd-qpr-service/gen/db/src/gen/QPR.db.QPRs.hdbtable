@@ -9,6 +9,9 @@ COLUMN TABLE QPR_db_QPRs (
   country NVARCHAR(100),
   department NVARCHAR(100),
   plant NVARCHAR(50),
-  status NVARCHAR(30),
+  status_1 NVARCHAR(30) DEFAULT 'Pending',
+  status_2 NVARCHAR(30) DEFAULT 'Pending',
+  status_3 NVARCHAR(30) DEFAULT 'Pending',
+  status_4 NVARCHAR(30) DEFAULT 'Pending',
   PRIMARY KEY(ID)
 )

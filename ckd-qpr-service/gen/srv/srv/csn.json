@@ -1262,9 +1262,33 @@
           "type": "cds.String",
           "length": 50
         },
-        "status": {
+        "status_1": {
           "type": "cds.String",
-          "length": 30
+          "length": 30,
+          "default": {
+            "val": "Pending"
+          }
+        },
+        "status_2": {
+          "type": "cds.String",
+          "length": 30,
+          "default": {
+            "val": "Pending"
+          }
+        },
+        "status_3": {
+          "type": "cds.String",
+          "length": 30,
+          "default": {
+            "val": "Pending"
+          }
+        },
+        "status_4": {
+          "type": "cds.String",
+          "length": 30,
+          "default": {
+            "val": "Pending"
+          }
         },
         "items": {
           "type": "cds.Composition",
@@ -1327,9 +1351,7 @@
           "length": 50
         },
         "Quantity": {
-          "type": "cds.Decimal",
-          "precision": 13,
-          "scale": 3
+          "type": "cds.Integer"
         },
         "uom": {
           "type": "cds.String",
@@ -2788,9 +2810,33 @@
           "type": "cds.String",
           "length": 50
         },
-        "status": {
+        "status_1": {
           "type": "cds.String",
-          "length": 30
+          "length": 30,
+          "default": {
+            "val": "Pending"
+          }
+        },
+        "status_2": {
+          "type": "cds.String",
+          "length": 30,
+          "default": {
+            "val": "Pending"
+          }
+        },
+        "status_3": {
+          "type": "cds.String",
+          "length": 30,
+          "default": {
+            "val": "Pending"
+          }
+        },
+        "status_4": {
+          "type": "cds.String",
+          "length": 30,
+          "default": {
+            "val": "Pending"
+          }
         },
         "items": {
           "type": "cds.Composition",
@@ -2860,9 +2906,7 @@
           "length": 50
         },
         "Quantity": {
-          "type": "cds.Decimal",
-          "precision": 13,
-          "scale": 3
+          "type": "cds.Integer"
         },
         "uom": {
           "type": "cds.String",

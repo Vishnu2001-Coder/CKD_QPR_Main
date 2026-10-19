@@ -9,5 +9,8 @@ VIEW QPRRequest_QPRs AS SELECT
   QPRs_0.country,
   QPRs_0.department,
   QPRs_0.plant,
-  QPRs_0.status
+  QPRs_0.status_1,
+  QPRs_0.status_2,
+  QPRs_0.status_3,
+  QPRs_0.status_4
 FROM QPR_db_QPRs AS QPRs_0

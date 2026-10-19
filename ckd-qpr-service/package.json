@@ -5,7 +5,8 @@
     "@cap-js-community/odata-v2-adapter": "^1.16.1",
     "@cap-js/hana": "^3",
     "@sap/cds": "^10",
-    "@sap/xssec": "^4"
+    "@sap/xssec": "^4",
+    "nodemon": "^3.1.14"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^3",
@@ -18,9 +19,9 @@
   "cds": {
     "server": {
       "index": true,
-       "body_parser": {
-      "limit": "20mb"
-    }
+      "body_parser": {
+        "limit": "20mb"
+      }
     },
     "requires": {
       "[development]": {

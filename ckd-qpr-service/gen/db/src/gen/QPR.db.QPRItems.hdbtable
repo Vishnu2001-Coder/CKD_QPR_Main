@@ -7,7 +7,7 @@ COLUMN TABLE QPR_db_QPRItems (
   part NVARCHAR(5000),
   description NVARCHAR(5000),
   caseNumber NVARCHAR(50),
-  Quantity DECIMAL(13, 3),
+  Quantity INTEGER,
   uom NVARCHAR(10),
   partCondition NVARCHAR(50),
   packagingCondition NVARCHAR(50),

@@ -43,7 +43,10 @@
         <Property Name="country" Type="Edm.String" MaxLength="100"/>
         <Property Name="department" Type="Edm.String" MaxLength="100"/>
         <Property Name="plant" Type="Edm.String" MaxLength="50"/>
-        <Property Name="status" Type="Edm.String" MaxLength="30"/>
+        <Property Name="status_1" Type="Edm.String" MaxLength="30"/>
+        <Property Name="status_2" Type="Edm.String" MaxLength="30"/>
+        <Property Name="status_3" Type="Edm.String" MaxLength="30"/>
+        <Property Name="status_4" Type="Edm.String" MaxLength="30"/>
         <NavigationProperty Name="items" Relationship="QPRRequest.QPRItems_qpr" FromRole="QPRs" ToRole="QPRItems"/>
       </EntityType>
       <EntityType Name="QPRItems">
@@ -59,7 +62,7 @@
         <Property Name="part" Type="Edm.String"/>
         <Property Name="description" Type="Edm.String"/>
         <Property Name="caseNumber" Type="Edm.String" MaxLength="50"/>
-        <Property Name="Quantity" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="Quantity" Type="Edm.Int32"/>
         <Property Name="uom" Type="Edm.String" MaxLength="10"/>
         <Property Name="partCondition" Type="Edm.String" MaxLength="50"/>
         <Property Name="packagingCondition" Type="Edm.String" MaxLength="50"/>

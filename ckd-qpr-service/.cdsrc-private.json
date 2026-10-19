@@ -14,6 +14,19 @@
         "vcap": {
           "name": "db"
         }
+      },
+      "AlertInstance": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-003.hana.ondemand.com",
+          "org": "69ce3fbftrial",
+          "space": "dev",
+          "instance": "AlertInstance",
+          "key": "key"
+        },
+        "vcap": {
+          "name": "AlertInstance"
+        }
       }
     }
   }

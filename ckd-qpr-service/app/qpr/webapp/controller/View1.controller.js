@@ -5,6 +5,7 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/m/BusyDialog",
     "sap/ui/core/Messaging"
 ], function (
     Controller,
@@ -12,7 +13,9 @@ sap.ui.define([
     MessageToast,
     JSONModel,
     Filter,
-    FilterOperator
+    FilterOperator,
+    BusyDialog,
+    Messaging
 ) {
     "use strict";
 
@@ -248,6 +251,14 @@ sap.ui.define([
         //set all the 6 properties and fetch the SalesOrder Detatils
         onGo: function () {
 
+            // Open Busy Dialog
+            this._oBusyDialog = new BusyDialog({
+                text: "Loading Sales Order Data..."
+            });
+
+            this._oBusyDialog.open();
+
+
             console.log("Hi im a Go");
 
             //Reset the all Input Box Except model family
@@ -269,7 +280,7 @@ sap.ui.define([
                 uom: "",
                 attachments: []
             }]
-             this.getOwnerComponent().getModel("QPRItems").setProperty("/items", empty);
+            this.getOwnerComponent().getModel("QPRItems").setProperty("/items", empty);
 
             //File Uplaosder making as an empty
             let aUploaders = this.getView().findAggregatedObjects(true, function (oControl) {
@@ -283,7 +294,7 @@ sap.ui.define([
             // console.log("Uploaders found:", aUploaders.length);
             // console.log("Items after reset:", oModel.getProperty("/items"));
 
-           
+
 
 
             //Get all the  Filter Data
@@ -371,6 +382,7 @@ sap.ui.define([
                 !salesOrderNo ||
                 salesOrderNo === "No sales order selected"
             ) {
+                this._oBusyDialog.close();
 
                 MessageToast.show(
                     "Please select an Invoice first."
@@ -401,6 +413,11 @@ sap.ui.define([
 
                 success: (oData) => {
 
+
+                    // Close Busy Dialog after successful response
+                    this._oBusyDialog.close();
+
+
                     console.log("SalesItem  Response:", oData);
                     this.salesItemResponse = oData;
 
@@ -409,6 +426,8 @@ sap.ui.define([
                 },
 
                 error: (oError) => {
+
+                    this._oBusyDialog.close();
 
                     console.error(
                         "Sales Order fetch failed:",
@@ -590,8 +609,8 @@ sap.ui.define([
                     }
                     else {
 
-                        input.setValueState("Success");
-                        input.setValueStateText("Valid Quantity");
+                        // input.setValueState("Success");
+                        // input.setValueStateText("Valid Quantity");
 
                         this.getOwnerComponent().getModel("QPRItems").setProperty(`/items/${path}/partNo`, value);
 
@@ -832,47 +851,65 @@ sap.ui.define([
         },
         selectPartCondition(event) {
             console.log("selectPartCondition");
+            let path = event.getSource().getBindingContext("QPRItems").getPath();
+            path = path.split("/").pop();
+            console.log("path : ", path);
+
+
             let part = event.getSource().getSelectedKey();
             console.log(part);
 
-            this.getOwnerComponent().getModel("QPRItems").setProperty("/items/0/partCondition", part);
+            this.getOwnerComponent().getModel("QPRItems").setProperty(`/items/${path}/partCondition`, part);
 
         },
         selectPackageCondition(event) {
             console.log("selectPackageCondition");
+            let path = event.getSource().getBindingContext("QPRItems").getPath();
+            path = path.split("/").pop();
+            console.log("path : ", path);
 
             let packageCon = event.getSource().getSelectedKey();
             console.log(packageCon);
 
-            this.getOwnerComponent().getModel("QPRItems").setProperty("/items/0/packagingCondition", packageCon);
+            this.getOwnerComponent().getModel("QPRItems").setProperty(`/items/${path}/packagingCondition`, packageCon);
 
 
         },
         selectNatureOfDefect(event) {
             console.log("selectNatureOfDefect");
+            let path = event.getSource().getBindingContext("QPRItems").getPath();
+            path = path.split("/").pop();
+            console.log("path : ", path);
+
             let natureOfDefect = event.getSource().getSelectedKey();
             console.log(natureOfDefect);
 
-            this.getOwnerComponent().getModel("QPRItems").setProperty("/items/0/natureOfDefect", natureOfDefect)
+            this.getOwnerComponent().getModel("QPRItems").setProperty(`/items/${path}/natureOfDefect`, natureOfDefect)
         },
         selectReplacementOrRework(event) {
             console.log("selectReplacementOrRework");
+            let path = event.getSource().getBindingContext("QPRItems").getPath();
+            path = path.split("/").pop();
+            console.log("path : ", path);
 
 
             let replacementOrRework = event.getSource().getSelectedKey();
             console.log(replacementOrRework);
 
-            this.getOwnerComponent().getModel("QPRItems").setProperty("/items/0/replacementOrRework", replacementOrRework)
+            this.getOwnerComponent().getModel("QPRItems").setProperty(`/items/${path}/replacementOrRework`, replacementOrRework)
 
         },
         selectUOM(event) {
             console.log("uom");
+            let path = event.getSource().getBindingContext("QPRItems").getPath();
+            path = path.split("/").pop();
+            console.log("path : ", path);
 
 
             let uom = event.getSource().getSelectedKey();
             console.log(uom);
 
-            this.getOwnerComponent().getModel("QPRItems").setProperty("/items/0/uom", uom)
+            this.getOwnerComponent().getModel("QPRItems").setProperty(`/items/${path}/uom`, uom)
 
 
 
@@ -1444,7 +1481,7 @@ sap.ui.define([
 
 
 
-            let filterModeldata = this.getView().getModel("FilterData").getData();  //getData(), because we wnat to get the all the data. 
+            let filterModeldata = this.getView().getModel("FilterData").getData();  //getData(), because we wnat to get the all the data(properties). 
 
             let qprItemsJsonModel = this.getOwnerComponent().getModel("QPRItems").getProperty("/items");
 
@@ -1788,7 +1825,7 @@ sap.ui.define([
                 {
                     title: "Submit QPR",
 
-                    onClose: function (sAction) {
+                    onClose: (sAction) => {
 
                         if (sAction !== MessageBox.Action.OK) {
                             return;
@@ -1810,22 +1847,63 @@ sap.ui.define([
 
                         oQPRRequestModel.create("/QPRs", oPayload,
                             {
-                                success: function (oData) {
+                                success: (oData) => {
 
                                     console.log("QPR POST Response:", oData);
 
-                                    MessageBox.success(
+                                    MessageToast.show(
                                         "QPR submitted successfully.\n\n" +
                                         "QPR Number: " +
-                                        oData.qprNumber,
+                                        oData.value,
                                         {
                                             title: "QPR Submitted"
                                         }
                                     );
 
+                                    // 1. Get the QPRItems model
+                                    const oQPRItemsModel =
+                                        this.getOwnerComponent().getModel("QPRItems");
+
+                                    // 2. Clear all existing FileUploader controls
+                                    const aUploaders = this.getView().findAggregatedObjects(
+                                        true,
+                                        (oControl) =>
+                                            oControl.isA("sap.ui.unified.FileUploader")
+                                    );
+
+                                    aUploaders.forEach((oUploader) => {
+                                        oUploader.clear();
+                                    });
+
+                                    // 3. Create one empty row
+                                    const emptyRow = {
+                                        modelFamily: "",
+                                        modelGroup: "",
+                                        caseNumber: "",
+                                        huNumber: "",
+                                        partNo: "",
+                                        description: "",
+                                        quantity: "",
+                                        partCondition: "",
+                                        packagingCondition: "",
+                                        natureOfDefect: "",
+                                        replacementOrRework: "",
+                                        uom: "",
+                                        attachments: [],
+                                        huNumbers: [],
+                                        partNumbers: []
+                                    };
+
+                                    // 4. Reset the model to one empty row
+                                    oQPRItemsModel.setProperty("/items", [emptyRow]);
+
+                                    // 5. Refresh the model
+                                    oQPRItemsModel.refresh(true);
+
+
                                 },
 
-                                error: function (oError) {
+                                error: (oError) => {
 
                                     console.error(
                                         "QPR POST Error:",
@@ -1862,7 +1940,7 @@ sap.ui.define([
                                 }
                             }
                         );
-                    }.bind(this)
+                    }
                 }
             );
         }

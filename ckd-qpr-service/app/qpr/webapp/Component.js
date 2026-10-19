@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
     "qpr/model/models",
-    "sap/ui/model/json/JSONModel"
-], (UIComponent, models, JSONModel) => {
+    "sap/ui/model/json/JSONModel",
+    "sap/ushell/Container"
+], (UIComponent, models, JSONModel, Container) => {
     "use strict";
 
     return UIComponent.extend("qpr.Component", {
@@ -33,7 +34,7 @@ sap.ui.define([
                         replacementOrRework: "",
                         uom: "",
                         attachments: [],
-                        
+
                         huNumbers: [],
                         partNumbers: []
                     }
@@ -51,6 +52,25 @@ sap.ui.define([
 
             // enable routing
             this.getRouter().initialize();
+
+        try{
+            if (Container && typeof Container.getUser==="function") {
+                let details = Container.getUser();         //Actuaaly .the ushell contanier communicate with BuildWorkZone fiori Shell , and get user details.
+                console.log(details.getEmail());           //Only work on BuildWorkzone , Throw Exception running locally and Html5 Repo
+                console.log(details.getFirstName());
+            }
+          }
+            catch(err){
+                   console.log(err.message ,"Not Avilable the Launpad");
+
+            }
+
+
+
+
+
+
+
         }
     });
 });

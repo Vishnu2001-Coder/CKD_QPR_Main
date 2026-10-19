@@ -1,50 +1,50 @@
-using { ckd_qpr.db as db } from '../db/schema_1';
-using { ckd_qpr.db1 as db1} from '../db/schema_2';
-using {QPR.db as db3  } from '../db/schema_3';
+using {ckd_qpr.db as db} from '../db/schema_1';
+using {ckd_qpr.db1 as db1} from '../db/schema_2';
+using {QPR.db as db3} from '../db/schema_3';
 
 
 //CKDQPRMasterDataServices
 
 
-service QPRService {                                         ///Core
-    entity ModelGroups   as projection on db.ModelGroups;
-    entity ModelFamilies as projection on db.ModelFamilies;
-    entity HUContainers  as projection on db.HUContainers;
-    entity Parts         as projection on db.Parts;
+service QPRService { ///Core
+  entity ModelGroups   as projection on db.ModelGroups;
+  entity ModelFamilies as projection on db.ModelFamilies;
+  entity HUContainers  as projection on db.HUContainers;
+  entity Parts         as projection on db.Parts;
 };
 
 
+service CKDService { //
+  entity Plants          as projection on db1.Plants;
+  entity Department      as projection on db1.Department;
+  entity Employees       as projection on db1.Employees;
 
-service CKDService {                                                       //
-    entity Plants          as projection on db1.Plants;
-    entity Department      as projection on db1.Department;
-    entity Employees       as projection on db1.Employees;
-    
-    entity SalesOrders     as projection on db1.SalesOrders;
-    entity SalesOrderItems as projection on db1.SalesOrderItems;
-    entity Invoices        as projection on db1.Invoices;
+  entity SalesOrders     as projection on db1.SalesOrders;
+  entity SalesOrderItems as projection on db1.SalesOrderItems;
+  entity Invoices        as projection on db1.Invoices;
 };
 
-service QPRRequest{
-  entity QPRs as projection on db3.QPRs;
-  entity QPRItems as projection on db3.QPRItems;
+service QPRRequest {
+  entity QPRs           as projection on db3.QPRs;
+  entity QPRItems       as projection on db3.QPRItems;
   entity QPRAttachments as projection on db3.QPRAttachments;
 }
+
 
 // https://port4004-workspaces-ws-gsz41.us10.trial.applicationstudio.cloud.sap/odata/v4/ckd/Invoices?$expand=salesOrder($expand=items($expand=modelFamily))
 
 
 //For Covert to  EDMX
 /*user: ckd-qpr-service $ cds compile * --to edmx
-Error: 
+Error:
 
     Found multiple service definitions in given model(s).
-    Please choose by adding one of... 
+    Please choose by adding one of...
 
-    -s all 
+    -s all
     -s QPRService
     -s CKDService
-  
+
     at _4odata (/extbin/globals/bun/global/install/node_modules/@sap/cds/lib/compile/to/edm.js:65:48)
     at cds_compile_to_edmx (/extbin/globals/bun/global/install/node_modules/@sap/cds/lib/compile/to/edm.js:38:9)
     at /extbin/globals/bun/global/install/node_modules/@sap/cds-dk/bin/compile/index.js:366:36
@@ -53,7 +53,7 @@ Error:
     at Object.to (/extbin/globals/bun/global/install/node_modules/@sap/cds-dk/lib/util/write.js:40:42)
     at /extbin/globals/bun/global/install/node_modules/@sap/cds-dk/lib/util/write.js:53:49
     at async Object.exec (/extbin/globals/bun/global/install/node_modules/@sap/cds-dk/bin/cds.js:109:16)
-    
+
 user: ckd-qpr-service $ cds compile * --to edmx -s all
 ----- QPRService.xml -----
 <?xml version="1.0" encoding="utf-8"?>

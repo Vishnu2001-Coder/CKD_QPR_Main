@@ -1,5 +1,5 @@
 const cds = require('@sap/cds');
-// const { useInsertionEffect } = require('react');
+const { SELECT } = require('@sap/cds/lib/ql/cds-ql');
 
 module.exports = cds.service.impl(async function () {
 
@@ -13,224 +13,20 @@ module.exports = cds.service.impl(async function () {
 
     this.before('CREATE', QPRs, async (req) => {
 
-        const { qprNumber } = req.data;
+        const { qprNumber } = req.data; 
+        console.log("Hi Vishnu");      
+        console.log(req.data);
+        
         req.data.qprNumber = await genrateQPRNumber(qprNumber, req);
-        console.log(req.data.qprNumber);
-
+        // console.log(req.data.qprNumber);
 
     });
+
 
     this.on('CREATE', QPRs, async (req) => {
-
         await INSERT.into(QPRs).entries(req.data);
-
+        return req.data.qprNumber;
     });
-
-    this.before('UPDATE', 'QPRs', validateQPR);
-
-    function validateQPR(req) {
-
-        const {
-            qprNumber,
-            dateOfContainerReceipt,
-            unpackingDate,
-            country,
-            department,
-            plant,
-            status
-        } = req.data;
-
-        if (!qprNumber) {
-            req.error(400, 'QPR Number is required', 'qprNumber');
-        }
-
-        if (qprNumber && qprNumber.length > 30) {
-            req.error(400, 'QPR Number cannot exceed 30 characters', 'qprNumber');
-        }
-
-        if (!dateOfContainerReceipt) {
-            req.error(
-                400,
-                'Container receipt date is required',
-                'dateOfContainerReceipt'
-            );
-        }
-
-        if (dateOfContainerReceipt && unpackingDate) {
-
-            if (new Date(unpackingDate) < new Date(dateOfContainerReceipt)) {
-                req.error(
-                    400,
-                    'Unpacking date cannot be before container receipt date',
-                    'unpackingDate'
-                );
-            }
-        }
-
-        if (!country) {
-            req.error(400, 'Country is required', 'country');
-        }
-
-        if (!plant) {
-            req.error(400, 'Plant is required', 'plant');
-        }
-
-        if (!department) {
-            req.error(400, 'Department is required', 'department');
-        }
-
-        if (status && ![
-            'DRAFT',
-            'SUBMITTED',
-            'IN_PROGRESS',
-            'COMPLETED',
-            'REJECTED'
-        ].includes(status)) {
-            req.error(400, 'Invalid QPR status', 'status');
-        }
-    }
-
-    this.before('CREATE', 'QPRItems', validateQPRItem);
-    this.before('UPDATE', 'QPRItems', validateQPRItem);
-
-    function validateQPRItem(req) {
-
-        const {
-            caseNumber,
-            invoiceQuantity,
-            claimQuantity,
-            uom,
-            partCondition,
-            packagingCondition,
-            natureOfDefect,
-            replacementOrRework
-        } = req.data;
-
-        if (!caseNumber) {
-            req.error(400, 'Case number is required', 'caseNumber');
-        }
-
-        if (!uom) {
-            req.error(400, 'Unit of measurement is required', 'uom');
-        }
-
-        if (invoiceQuantity == null) {
-            req.error(
-                400,
-                'Invoice quantity is required',
-                'invoiceQuantity'
-            );
-        }
-
-        if (claimQuantity == null) {
-            req.error(
-                400,
-                'Claim quantity is required',
-                'claimQuantity'
-            );
-        }
-
-        if (invoiceQuantity != null && invoiceQuantity < 0) {
-            req.error(
-                400,
-                'Invoice quantity cannot be negative',
-                'invoiceQuantity'
-            );
-        }
-
-        if (claimQuantity != null && claimQuantity < 0) {
-            req.error(
-                400,
-                'Claim quantity cannot be negative',
-                'claimQuantity'
-            );
-        }
-
-        if (
-            invoiceQuantity != null &&
-            claimQuantity != null &&
-            claimQuantity > invoiceQuantity
-        ) {
-            req.error(
-                400,
-                'Claim quantity cannot be greater than invoice quantity',
-                'claimQuantity'
-            );
-        }
-
-        if (!partCondition) {
-            req.error(
-                400,
-                'Part condition is required',
-                'partCondition'
-            );
-        }
-
-        if (!packagingCondition) {
-            req.error(
-                400,
-                'Packaging condition is required',
-                'packagingCondition'
-            );
-        }
-
-        if (!natureOfDefect) {
-            req.error(
-                400,
-                'Nature of defect is required',
-                'natureOfDefect'
-            );
-        }
-
-        if (!replacementOrRework) {
-            req.error(
-                400,
-                'Replacement or rework is required',
-                'replacementOrRework'
-            );
-        }
-    }
-
-
-    this.before('CREATE', 'QPRAttachments', validateAttachment);
-    this.before('UPDATE', 'QPRAttachments', validateAttachment);
-
-    function validateAttachment(req) {
-
-        const {
-            fileName,
-            fileType,
-            fileContent
-        } = req.data;
-
-        if (!fileName) {
-            req.error(400, 'File name is required', 'fileName');
-        }
-
-        if (!fileType) {
-            req.error(400, 'File type is required', 'fileType');
-        }
-
-        if (!fileContent) {
-            req.error(400, 'File content is required', 'fileContent');
-        }
-        // Allowed file types
-        const allowedTypes = [
-            'application/pdf',
-            'image/jpeg',
-            'image/png'
-        ];
-        if (
-            fileType &&
-            !allowedTypes.includes(fileType)
-        ) {
-            req.error(
-                400,
-                'Only PDF, JPG and PNG files are allowed',
-                'fileType'
-            );
-        }
-    }
 
     //helper methods
     async function genrateQPRNumber(qprNo, req) {
@@ -295,13 +91,15 @@ module.exports = cds.service.impl(async function () {
         };
 
         let number = "QPR_";
-        let countryCode = countries[req.data.country].code;
-        let serial = await SELECT('qprNumber').from(QPRs).orderBy('qprNumber desc').limit(1).qprNumber;
+        let countryCode = countries[req.data.country].value;
+
         let plantName = req.data.plant;
         plantName = plantName.slice(0, 3).toUpperCase();
+
+        let serials = await SELECT('qprNumber').from(QPRs);
         let formattedDate;
 
-        if (!serial) {
+        if (serials.length === 0) {
 
             number += countryCode;
             number += '1_';
@@ -316,29 +114,39 @@ module.exports = cds.service.impl(async function () {
             formattedDate = `${day}${month}${year}`;
 
             number += formattedDate;
+
+
         } else {
+
+            for (s of serials) s.qprNumber = Number(s.qprNumber.slice(9, 12));
+
+            serials.sort((a, b) => b.qprNumber - a.qprNumber);
+            let previousSerial = serials[0].qprNumber + 1;
+
+            if (previousSerial < 10)
+                previousSerial = '00' + previousSerial;
+            else if (previousSerial > 9 && previousSerial < 100)
+                previousSerial = '0' + previousSerial;
 
             number += countryCode;
             number += '1_';
-
-            if (serial < 9) {
-                number += '0'
-                number += serial + 1;
-            } else {
-                number += serial + 1;
-            }
+            number += previousSerial + '_';
             number += plantName;
             number += '_';
 
-            const date = new Date();
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-            formattedDate = `${day}${month}${year}`;
 
+            const date = new Date();
+            const day = String(date.getDate()).padStart(2, "0");
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const year = date.getFullYear();
+
+            formattedDate = `${day}${month}${year}`;
             number += formattedDate;
+
         }
+
         return number;
+
     }
 
 });

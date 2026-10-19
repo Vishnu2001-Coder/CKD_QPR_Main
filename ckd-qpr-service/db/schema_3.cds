@@ -23,7 +23,10 @@ entity QPRs {
         department             : String(100); //Association to Departments;
         plant                  : String(50);
 
-        status                 : String(30);
+        status_1               : String(30) default 'Pending';  // this default will be  store ,before store the data in database. we didnt send this data in logic side.
+        status_2               : String(30) default 'Pending';
+        status_3               : String(30) default 'Pending';
+        status_4               : String(30) default 'Pending';
 
         items                  : Composition of many QPRItems
                                      on items.qpr = $self;
@@ -46,7 +49,7 @@ entity QPRItems {
 
         caseNumber          : String(50);
 
-        Quantity     : Decimal(13, 3);
+        Quantity            : Integer;
 
         uom                 : String(10);
 
